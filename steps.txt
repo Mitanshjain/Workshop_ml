@@ -15,3 +15,5 @@ notebook ---> data folder ---> dataset ---> covid_toy.csv
 src ---> components --->__init.py
 
 src ---> components ---> data_ingestion.py
+
+src ---> components ---> data_transformation.py
