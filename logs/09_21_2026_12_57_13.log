@@ -1,4 +1,0 @@
-[2026-09-21 12:57:13,641] 63 __main__ -INFO -Train and Test data loaded for transformation
-[2026-09-21 12:57:13,654] 53 __main__ -INFO -preprocessor object created successfully...
-[2026-09-21 12:57:13,655] 72 __main__ -INFO -Applying preprocessor on train and test data
-[2026-09-21 12:57:13,655] 23 src.exception -ERROR -Error occured in python script :[D:\Data Science\Workshop_ml\src\components\data_transformation.py]at line number : [73]with error message: ['NoneType' object has no attribute 'fit_transform']
