@@ -1,0 +1,24 @@
+[2026-09-23 14:06:54,915] 23 src.exception -ERROR -Error occured in python script :[D:\Data Science\Workshop_ml\nlp_pretrained\ner_tagger.py]at line number : [22]with error message: [
+**********************************************************************
+  Resource 'maxent_ne_chunker_tab' not found.
+  Please use the NLTK Downloader to obtain the resource:
+
+  >>> import nltk
+  >>> nltk.download('maxent_ne_chunker_tab')
+
+  For more information see: https://www.nltk.org/data.html
+
+  Attempted to load 'chunkers/maxent_ne_chunker_tab/english_ace_multiclass/'
+
+  Searched in:
+    - 'C:\\Users\\MY PC/nltk_data'
+    - 'D:\\Data Science\\Workshop_ml\\.venv\\nltk_data'
+    - 'D:\\Data Science\\Workshop_ml\\.venv\\share\\nltk_data'
+    - 'D:\\Data Science\\Workshop_ml\\.venv\\lib\\nltk_data'
+    - 'C:\\Users\\MY PC\\AppData\\Roaming\\nltk_data'
+    - 'C:\\nltk_data'
+    - 'D:\\nltk_data'
+    - 'E:\\nltk_data'
+    - 'C:\\Users\\MY PC\\AppData\\Roaming\\nltk_data\\taggers\\averaged_perceptron_tagger_eng'
+**********************************************************************
+]
