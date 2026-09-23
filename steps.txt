@@ -33,3 +33,14 @@ static/style.css
 
 for running the server:-
 use this command:- uvicorn main:app --reload --host 0.0.0.0 --port 8000
+
+
+NLP pretrained folder creation
+
+download_data
+
+ner_tagger
+
+embeddings
+
+sentiment_analyzer
