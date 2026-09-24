@@ -44,3 +44,64 @@ ner_tagger
 embeddings
 
 sentiment_analyzer
+
+demo.py
+
+templates ---> pretrained_nlp.html
+
+Add tools in main.py
+
+-----------------------------------------------------------------Task----------------------------------------------------------------------
+
+Tool add ---> Create a new folder ----> package ----> modular code logic setup ---> test ----> main.py(routing,render) ---> template folder
+---> add html (for every logic)
+
+
+
+--------------------------------------------------------ChatBot---------------------------------------------------------------------------
+When the patient come to screening in the home page screen add a logo when someone hit on the logo the box will open, then user query this will
+go to LLM then the patient will writing prompting (it means how you will give instruction to llm) you will take llm as groq.
+
+
+chatbot works like this :-
+
+chatbot : Hy,what can i help you?
+you : that i have disease or symptoms ---> that symptoms or disease goes to llm ---> then llm gives suggestions and what problem you have --->
+        what precaution or safety you have to take.
+
+you : if the user come then it will also communicate like "muje clinic pr doctor sahab mil jaayge, aaj clinic pr nurologist kon konse 
+doctors hai.aaj kis kis time pr neurologist available hai i mean availability slots ---> llm gives slots also llm suggest the names that this 
+doctors are available then ask isme se konse doctor ko dikhana chahte ho or koi nya user aaye toh wo like random doctor select kr lega or wo 
+apna time slot book kr lega ---> yeh saari chizze database mai add hogi and update bhi hogi.(use mysql)
+
+jese agr mai first time clinic pr dikhane jaa rha hoo or merko llm ne 3 doctor de diye or 3 doctor mere liye random hai pr mera already kisi 
+doctor ke pass treatment chl rha hai toh mai toh usi doctor ke baare mai baat kruga toh maan loo 
+user ---> already login 
+
+so you have to make a login page and logout page then user used to sing in krega or uski jo id hai wo database mai add hogi uske basis pr pehle communicate 
+kr rkha hai toh wo llm ke pass history jaaygi.
+
+database schema and everything created accordingly 
+
+Suppose we have patient with name mohit.
+for example:-
+mohit patient ---> first time on clinic ---> In my stomach i have alsar ---> Doctor meeting or uska tratment chl rha hai 
+or jb mohit dobara aaye 
+mohit ---> mohit agr dobara login krta hai toh uss hi doctor ka suggestion de jo ki pehle doctor ne mohit ko dekha thaa like uska tratment 
+pehle jiss chl rha thaa usi ke pass jaaye.
+
+issi me kya hota hai doctor suggest krta hai ki apko hafte bhar baad wps aana hai apki tablets update hogi.
+
+user ---> injury ki photo upload kr skee --->uss photo ko dekhne ke baad llm decide krega ---> llm uss image ko transcribe krega ki yeh 
+hath ki photo hath pr lgi hai yaa pairo mai lgi hai and make that logic as hybrid ki agr normally lgi hai toh OPD bhej do.
+
+Normal injury ---> OPD ---> OPD database mai jaayga ---> phir doctor ki list lega ---> phir doctor assign kr dega uske time ke according.
+
+serious injury ---> jese haddi tut gyi ya phir operation hoga jese neurolist ke pass jaayga yaa orthopadic ke pass jaayga toh usko kha 
+bhejna hai ---> llm dekhega which body part  effect --->doctor suggest krega ---> booking krega doctor ke time slot ke according.
+
+user agar already login hai to wo apna jo llm hai jese hi user ne hy likha llm database mai se summary ko pick krega ---> or bolega pehle 
+jese mohit ko fever thaa toh llm mohit ko bolega hy mohit how's your fever as that kind of chat bot 
+
+we have to make this chat bot as user friendly too much.
+

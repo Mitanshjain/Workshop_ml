@@ -9,6 +9,11 @@ from src.logger import get_logger
 from src.exception import CustomException
 logger = get_logger(__name__)
 from src.pipeline.predict_pipeline import CustomData,PredictPipeline
+
+from nlp_pretrained.ner_tagger import(get_pos_tags,extract_entities)
+from nlp_pretrained.embedding import(most_similar_word)
+from nlp_pretrained.sentiment_analyzer import analyze_sentiment
+
 app = FastAPI(title="covid prediction clinic")
 
 # Mounting the css file
@@ -69,6 +74,98 @@ async def predict_result(
 async def health_check() -> dict[str, str]:
     logger.info("Monitering alert....")
     return{"status":"ok"}
+
+
+# NLP pretrained
+
+@app.get("/pretrained-nlp",response_class=HTMLResponse)
+async def pretrained_nlp_form(request:Request):
+    return templates.TemplateResponse(request,
+                                      "pretrained_nlp.html",
+                                      {
+                                          "result":None,
+                                          "Form_data":{
+                                              "query":""
+                                          },
+                                          "error":None
+                                      })
+
+@app.post("/pretrained-nlp",response_class=HTMLResponse)
+async def pretrained_nlp_analysis(
+    request:Request,
+    query:str = Form(...)
+) -> None:
+    try:
+        # Text clean
+        query = query.strip()
+        if not query:
+            return templates.TemplateResponse(
+                request,
+                "pretrained_nlp.html",
+                {
+                    "result":None,
+                    "form_data":{
+                        "query":""
+                    },
+                    "error":"Please some text..."
+                }
+            )
+        # Pos tagging
+        pos_tags = get_pos_tags(query)
+
+        # NER
+        entities = extract_entities(query)
+
+        # Sentiment Analysis
+        sentiment = analyze_sentiment(query)
+
+        # Word Embeddings
+        similar_word = []
+        words = query.split()
+        first_word = words[0].lower()
+        if words:
+            try:
+                similar_word = most_similar_word(first_word,topn = 5)
+            except Exception as e:
+                logger.warning(f"Glove similarity failed for :", {first_word},"and the error is:",{e})
+                similar_words = []
+
+        # Final result
+        result = {
+            "query":query,
+            "pos_tags":pos_tags,
+            "entities":entities,
+            "similar_words":similar_word,
+            "sentiment":sentiment
+        }
+        # Rendering the result
+        return templates.TemplateResponse(
+            request,
+            "pretrained_nlp.html",
+            {
+                "result":result,
+                "form_data":{
+                    "query":query
+                },
+                "error":None
+            }
+        )
+
+
+    except Exception as e:
+        logger.info("Error occured in pretrained nlp analysis")
+        return templates.TemplateResponse(
+            request,
+            "pretrained_nlp.html",
+            {
+                "result":None,
+                "form_data":{
+                    "query":query
+                },
+                "error":str(e)
+            }
+        )
+
 
 
 if __name__ == "__main__":
