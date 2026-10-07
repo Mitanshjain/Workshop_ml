@@ -27,7 +27,7 @@ Backup folder --->chatbot integrate mcp_server
 
 Test ON Monday - 2-3 MCP SERVER (1-MCP SERVER OF LLM INTEGRATION , 1-MCP SERVER CUSTOM)DATA- INSURANCE, CHURN_MODELLING
 
-Test on Tuesday - System design(50-100) users (rate limiting , jwt token(JSON Web token) , oath permission , RBAC(Role BAsed Access Control))
+Test on Tuesday - System design(50-100) users (rate limiting , jwt token(JSON Web token) , oath permission , RBAC(Role Based Access Control))
 MLOPS, NLP, MCP_SERVER+LLM   ----> free or open source tool
 
 LLM --> TOKEN GENERATE ---> PRICING
