@@ -1,0 +1,33 @@
+In this medical_mcp you have to control hallucination.
+
+hallucination means if in our database the doctor details are not available so this didnt generate.
+hallucination control ---> doctor details not in db ---> not generate ---> no
+
+safety/security concern --->
+Role ---> System based,admin based.
+
+Role ---> user ---> Access
+Role ---> System ---> Access
+Role ---> Super Admin ---> Access
+
+you have to make 10 mcp server in which:-
+10 mcp server
+
+5 mcp server for users
+
+3 mcp server for admin
+
+2 mcp server for system
+
+what we called this constraints are known as RBAC(Role BAsed Access Control)
+
+New page.html create ---> frontend that connect to fastapi and that fastapi connect with fastmcp
+
+Backup folder --->chatbot integrate mcp_server
+
+Test ON Monday - 2-3 MCP SERVER (1-MCP SERVER OF LLM INTEGRATION , 1-MCP SERVER CUSTOM)DATA- INSURANCE, CHURN_MODELLING
+
+Test on Tuesday - System design(50-100) users (rate limiting , jwt token , oath permission , RBAC, )
+MLOPS, NLP, MCP_SERVER+LLM   ----> free or open source tool
+
+LLM --> TOKEN GENERATE ---> PRICING

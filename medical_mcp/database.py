@@ -45,13 +45,13 @@ def init_db():
             [
                 (
                     1,
-                    "Dr. Sharma",
+                    "Dr.Sharma",
                     "General Physician",
                     "10 AM - 2 PM"
                 ),
                 (
                     2,
-                    "Dr. Mehta",
+                    "Dr.Mehta",
                     "Cardiologist",
                     "4 PM - 8 PM"
                 ),
