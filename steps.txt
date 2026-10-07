@@ -105,3 +105,5 @@ jese mohit ko fever thaa toh llm mohit ko bolega hy mohit how's your fever as th
 
 we have to make this chat bot as user friendly too much.
 
+or iss kaam ko static nhi rkhan hai dynamic krna hai. isme apn isko main.py mai le jaayge phir route krege or database se integration 
+ho jaayga or html bn jaaygi templates ke andr.

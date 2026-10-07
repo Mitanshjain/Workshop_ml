@@ -1,0 +1,11 @@
+Agenda ---> Remote MCP server
+
+DB ---> Product with their user_ID
+
+1st tool ---> db check product available or notebook
+
+2nd tool ---> return or refund policy
+
+fastmcp ---> remotly on
+
+main.py ---> fastapi ---> fastmcp server remote url ---> as an client ---> 

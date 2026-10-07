@@ -7,3 +7,8 @@ jinja2
 python-multipart
 nltk
 gensim
+groq
+python-dotenv
+mysql-connector-python
+itsdangerous
+elevenlabs

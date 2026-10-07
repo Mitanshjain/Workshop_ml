@@ -1,478 +1,4776 @@
 <!DOCTYPE html>
+
 <html lang="en">
+
+
+
 <head>
+
+
+
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+
+
+  <meta
+
+    name="viewport"
+
+    content="width=device-width, initial-scale=1.0"
+
+  />
+
+
 
   <title>Sanjeevani Screening Clinic</title>
 
-  <link rel="stylesheet" href="/static/style.css" />
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+
     rel="stylesheet"
+
+    href="/static/style.css"
+
   />
+
+
+
+  <link
+
+    rel="preconnect"
+
+    href="https\://fonts.googleapis.com"
+
+  />
+
+
+
+  <link
+
+    rel="preconnect"
+
+    href="https\://fonts.gstatic.com"
+
+    crossorigin
+
+  >
+
+
+
+  <link
+
+    href="https\://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap"
+
+    rel="stylesheet"
+
+  />
+
+
+
+  <style>
+
+
+
+    /* ================================================= */
+
+    /* PAYMENT CARD                                      */
+
+    /* ================================================= */
+
+
+
+    .chatbot-payment-card {
+
+      width: 90%;
+
+      max-width: 300px;
+
+      margin: 8px 0;
+
+      padding: 16px;
+
+      background: #ffffff;
+
+      border: 1px solid #dce7e8;
+
+      border-radius: 16px;
+
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+
+    }
+
+
+
+
+
+    .payment-title {
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      color: #263738;
+
+      margin-bottom: 15px;
+
+    }
+
+
+
+
+
+    .payment-details {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 9px;
+
+      margin-bottom: 15px;
+
+    }
+
+
+
+
+
+    .payment-details div {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 10px;
+
+      font-size: 12px;
+
+    }
+
+
+
+
+
+    .payment-details span {
+
+      color: #7a8586;
+
+    }
+
+
+
+
+
+    .payment-details strong {
+
+      color: #263738;
+
+      text-align: right;
+
+      font-weight: 600;
+
+    }
+
+
+
+
+
+    /* ================================================= */
+
+    /* QR / BARCODE                                      */
+
+    /* ================================================= */
+
+
+
+    .dummy-qr {
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+      padding: 14px;
+
+      margin: 12px 0;
+
+      background: #f7faf9;
+
+      border: 1px solid #dce7e8;
+
+      border-radius: 12px;
+
+    }
+
+
+
+
+
+    .qr-pattern {
+
+      position: relative;
+
+      width: 135px;
+
+      height: 135px;
+
+      background-color: #ffffff;
+
+
+
+      background-image:
+
+        linear-gradient(90deg, #111 8px, transparent 8px),
+
+        linear-gradient(#111 8px, transparent 8px);
+
+
+
+      background-size: 16px 16px;
+
+
+
+      border: 7px solid #111;
+
+      overflow: hidden;
+
+    }
+
+
+
+
+
+    .qr-corner {
+
+      position: absolute;
+
+      width: 34px;
+
+      height: 34px;
+
+      background: #ffffff;
+
+      border: 7px solid #111;
+
+      z-index: 2;
+
+    }
+
+
+
+
+
+    .qr-corner::after {
+
+      content: "";
+
+      position: absolute;
+
+      width: 14px;
+
+      height: 14px;
+
+      background: #111;
+
+      top: 3px;
+
+      left: 3px;
+
+    }
+
+
+
+
+
+    .qr-corner.top-left {
+
+      top: 5px;
+
+      left: 5px;
+
+    }
+
+
+
+
+
+    .qr-corner.top-right {
+
+      top: 5px;
+
+      right: 5px;
+
+    }
+
+
+
+
+
+    .qr-corner.bottom-left {
+
+      bottom: 5px;
+
+      left: 5px;
+
+    }
+
+
+
+
+
+    .qr-center {
+
+      position: absolute;
+
+      left: 50%;
+
+      top: 50%;
+
+      transform: translate(-50%, -50%);
+
+
+
+      width: 42px;
+
+      height: 42px;
+
+
+
+      display: flex;
+
+      justify-content: center;
+
+      align-items: center;
+
+
+
+      background: #ffffff;
+
+      border: 2px solid #111;
+
+
+
+      font-size: 6px;
+
+      font-weight: 700;
+
+      letter-spacing: 0.5px;
+
+      color: #111;
+
+
+
+      z-index: 5;
+
+    }
+
+
+
+
+
+    /* ================================================= */
+
+    /* PAYMENT BUTTON                                    */
+
+    /* ================================================= */
+
+
+
+    .payment-done-button {
+
+      width: 100%;
+
+      border: none;
+
+      border-radius: 10px;
+
+
+
+      padding: 12px;
+
+
+
+      background: #1f6f78;
+
+      color: #ffffff;
+
+
+
+      font-family: inherit;
+
+      font-size: 14px;
+
+      font-weight: 600;
+
+
+
+      cursor: pointer;
+
+
+
+      transition:
+
+        background 0.2s ease,
+
+        transform 0.2s ease;
+
+    }
+
+
+
+
+
+    .payment-done-button:hover {
+
+      background: #195d65;
+
+      transform: translateY(-1px);
+
+    }
+
+
+
+
+
+    .payment-done-button:disabled {
+
+      opacity: 0.65;
+
+      cursor: not-allowed;
+
+      transform: none;
+
+    }
+
+
+
+
+
+    /* ================================================= */
+
+    /* PAYMENT STATUS                                    */
+
+    /* ================================================= */
+
+
+
+    .payment-status {
+
+      margin-top: 10px;
+
+      text-align: center;
+
+      font-size: 12px;
+
+    }
+
+
+
+
+
+    .payment-success {
+
+      color: #26734d;
+
+      font-weight: 600;
+
+    }
+
+
+
+
+
+    .payment-error {
+
+      color: #b44a4a;
+
+    }
+
+
+
+
+
+    /* ================================================= */
+
+    /* APPOINTMENT CONFIRMATION                          */
+
+    /* ================================================= */
+
+
+
+    .appointment-confirmation {
+
+      width: 90%;
+
+      max-width: 300px;
+
+    }
+
+
+
+
+
+    .confirmation-title {
+
+      font-size: 16px;
+
+      font-weight: 700;
+
+      color: #263738;
+
+      margin-bottom: 8px;
+
+    }
+
+
+
+
+
+    .appointment-confirmation p {
+
+      font-size: 13px;
+
+      line-height: 1.5;
+
+      margin: 0 0 14px;
+
+      color: #5f6b6c;
+
+    }
+
+
+
+
+
+    .confirmation-details {
+
+      display: flex;
+
+      flex-direction: column;
+
+      gap: 9px;
+
+    }
+
+
+
+
+
+    .confirmation-details div {
+
+      display: flex;
+
+      justify-content: space-between;
+
+      align-items: center;
+
+      gap: 10px;
+
+      font-size: 12px;
+
+    }
+
+
+
+
+
+    .confirmation-details span {
+
+      color: #7a8586;
+
+    }
+
+
+
+
+
+    .confirmation-details strong {
+
+      color: #263738;
+
+      text-align: right;
+
+      font-weight: 600;
+
+    }
+
+
+
+
+
+    /* ================================================= */
+
+    /* SUCCESS PAYMENT MESSAGE                           */
+
+    /* ================================================= */
+
+
+
+    .payment-success-message {
+
+      background: #f1faf5;
+
+      border: 1px solid #cdebd9;
+
+      color: #26734d;
+
+      font-weight: 600;
+
+    }
+
+
+
+
+/* PREMIUM HERO */
+.premium-hero{position:relative;overflow:hidden;min-height:680px;padding-top:85px;padding-bottom:85px}.hero-glow{position:absolute;border-radius:50%;filter:blur(90px);pointer-events:none;opacity:.35}.hero-glow-one{width:420px;height:420px;background:#d9f1ed;right:-120px;top:-100px}.hero-glow-two{width:300px;height:300px;background:#e6f2f8;left:-120px;bottom:-120px}.hero-badge{display:inline-flex;align-items:center;gap:9px;padding:8px 13px;border:1px solid #d9e8e6;border-radius:999px;background:rgba(255,255,255,.78);color:#426364;font-size:12px;font-weight:600;margin-bottom:24px}.hero-badge-dot{width:7px;height:7px;border-radius:50%;background:#2c9a78;box-shadow:0 0 0 4px rgba(44,154,120,.12)}.premium-hero .hero-content h1{max-width:650px}.premium-hero .hero-content h1 span{display:block;color:#1f6f78}.premium-hero .lede{max-width:600px}.hero-actions{display:flex;align-items:center;flex-wrap:wrap;gap:12px;margin-top:30px}.hero-primary-btn{min-height:52px}.hero-chat-btn{min-height:52px;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:0 20px;border:1px solid #d4e2e1;border-radius:10px;background:#fff;color:#294849;font-family:inherit;font-size:14px;font-weight:600;cursor:pointer;box-shadow:0 5px 18px rgba(31,67,70,.05);transition:.2s ease}.hero-chat-btn:hover{transform:translateY(-2px);border-color:#a9ccca;box-shadow:0 9px 24px rgba(31,67,70,.09)}.hero-chat-icon{color:#1f6f78;font-size:17px}.hero-mini-features{display:flex;flex-wrap:wrap;gap:25px;margin-top:36px}.hero-mini-feature{display:flex;align-items:center;gap:9px}.hero-mini-feature>span{width:25px;height:25px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:#eaf5f2;color:#25755f;font-size:11px;font-weight:700}.hero-mini-feature div{display:flex;flex-direction:column}.hero-mini-feature strong{color:#263738;font-size:12px}.hero-mini-feature small{color:#849091;font-size:10px}.premium-hero-visual{position:relative;display:flex;align-items:center;justify-content:center}.ai-dashboard-card{position:relative;z-index:3;width:100%;max-width:510px;padding:22px;background:rgba(255,255,255,.94);border:1px solid #d3e3e2;border-radius:24px;box-shadow:0 28px 70px rgba(29,68,71,.13);backdrop-filter:blur(15px)}.ai-dashboard-header{display:flex;justify-content:space-between;align-items:center;padding-bottom:18px;border-bottom:1px solid #edf2f1}.ai-dashboard-title{display:flex;align-items:center;gap:11px}.ai-logo{width:42px;height:42px;display:flex;align-items:center;justify-content:center;border-radius:12px;background:#1f6f78;color:#fff;font-size:18px}.ai-dashboard-title div:last-child{display:flex;flex-direction:column}.ai-dashboard-title span{color:#879293;font-size:9px;font-weight:700;letter-spacing:1.1px}.ai-dashboard-title strong{color:#253839;font-size:16px}.ai-live-status{display:flex;align-items:center;gap:7px;padding:6px 9px;background:#eff9f5;border-radius:999px;color:#31735d;font-size:10px;font-weight:700}.ai-live-status span{width:6px;height:6px;border-radius:50%;background:#39a67d}.ai-welcome-card{display:flex;gap:12px;margin-top:18px;padding:15px;background:linear-gradient(135deg,#f2f8f7,#f8fbfb);border:1px solid #e1ecea;border-radius:15px}.ai-avatar{flex:0 0 32px;width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:#dfeeed;color:#1f6f78}.ai-welcome-card span{color:#1f6f78;font-size:11px;font-weight:700}.ai-welcome-card p{margin:4px 0 0;color:#667677;font-size:11px;line-height:1.55}.ai-capability-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-top:14px}.ai-capability{display:grid;grid-template-columns:35px 1fr auto;align-items:center;gap:9px;min-height:68px;padding:10px;background:#fff;border:1px solid #e4eceb;border-radius:13px}.capability-icon{width:35px;height:35px;display:flex;align-items:center;justify-content:center;background:#edf6f4;color:#1f6f78;border-radius:10px}.ai-capability div:nth-child(2){display:flex;flex-direction:column}.ai-capability span{color:#899596;font-size:9px}.ai-capability strong{color:#34494a;font-size:10px}.capability-arrow{color:#9aabaa}.ai-dashboard-footer{display:grid;grid-template-columns:34px 1fr 34px;align-items:center;gap:10px;margin-top:14px;padding:12px;border-radius:13px;background:#1f6f78}.ai-secure-icon{width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(255,255,255,.15);color:#fff}.ai-dashboard-footer>div:nth-child(2){display:flex;flex-direction:column}.ai-dashboard-footer strong{color:#fff;font-size:11px}.ai-dashboard-footer span{color:rgba(255,255,255,.7);font-size:9px}.ai-dashboard-footer button{width:31px;height:31px;border:none;border-radius:8px;background:#fff;color:#1f6f78;cursor:pointer}.hero-floating-card{position:absolute;z-index:5;right:-15px;bottom:38px;display:flex;align-items:center;gap:9px;padding:10px 12px;background:#fff;border:1px solid #dce9e7;border-radius:13px;box-shadow:0 15px 35px rgba(30,70,73,.13)}.floating-ai-icon{width:31px;height:31px;display:flex;align-items:center;justify-content:center;border-radius:9px;background:#e8f4f2;color:#1f6f78}.hero-floating-card>div:nth-child(2){display:flex;flex-direction:column}.hero-floating-card strong{font-size:10px}.hero-floating-card span{font-size:9px;color:#899596}.floating-online-dot{width:7px;height:7px;border-radius:50%;background:#38a47b}.hero-dot-grid{position:absolute;width:100px;height:100px;right:-20px;top:15px;opacity:.25;background-image:radial-gradient(#6e9997 1.3px,transparent 1.3px);background-size:12px 12px}@media(max-width:900px){.premium-hero{min-height:auto;padding-top:60px;padding-bottom:70px}.premium-hero-visual{margin-top:45px}.hero-floating-card{right:5px}}@media(max-width:600px){.premium-hero{padding-top:45px;padding-bottom:55px}.hero-actions{align-items:stretch;flex-direction:column}.hero-actions a,.hero-chat-btn{width:100%;box-sizing:border-box}.ai-capability-grid{grid-template-columns:1fr}.hero-floating-card{display:none}}
+
+  </style>
+
+
+
 </head>
+
+
+
+
 
 <body>
 
+
+
+
+
   <!-- ================= HEADER ================= -->
 
-  <header class="site-header">
+<!-- ================= HEADER ================= -->
 
-    <a href="/" class="brand">
 
-      <span class="brand-mark">
-        <svg width="19" height="19" viewBox="0 0 24 24" fill="none">
-          <path
-            d="M12 21s-7.5-4.6-9.8-9.4C.6 7.9 2.4 4.5 6 4.1c2-.2 3.6.9 6 3 2.4-2.1 4-3.2 6-3 3.6.4 5.4 3.8 3.8 7.5C19.5 16.4 12 21 12 21z"
-            fill="currentColor"
-          />
-        </svg>
-      </span>
 
-      <span>
-        Sanjeevani
-        <small>SCREENING CLINIC</small>
-      </span>
+<header class="site-header">
 
-    </a>
+
+
+  <a href="/" class="brand">
+
+
+
+    <span class="brand-mark">
+
+      <svg
+
+        width="19"
+
+        height="19"
+
+        viewBox="0 0 24 24"
+
+        fill="none"
+
+      >
+
+        <path
+
+          d="M12 21s-7.5-4.6-9.8-9.4C.6 7.9 2.4 4.5 6 4.1c2-.2 3.6.9 6 3 2.4-2.1 4-3.2 6-3 3.6.4 5.4 3.8 3.8 7.5C19.5 16.4 12 21 12 21z"
+
+          fill="currentColor"
+
+        />
+
+      </svg>
+
+    </span>
+
+
+
+    <span>
+
+      Sanjeevani
+
+      <small>SCREENING CLINIC</small>
+
+    </span>
+
+
+
+  </a>
+
+
+
+
+
+  <div class="header-right">
+
+
+
+    <div class="patient-info">
+
+
+
+      <div class="patient-icon">
+
+        👤
+
+      </div>
+
+
+
+      <div class="patient-text">
+
+
+
+        <div class="patient-name">
+
+          {{ patient_name }}
+
+        </div>
+
+
+
+        <div class="patient-email">
+
+          {{ patient_email }}
+
+        </div>
+
+
+
+        <a
+
+          href="/logout"
+
+          class="patient-logout"
+
+        >
+
+          Logout
+
+        </a>
+
+
+
+      </div>
+
+
+
+    </div>
+
+
+
+
 
     <nav>
-      <a href="/predict" class="nav-button">
+
+
+
+      <a
+
+        href="/predict"
+
+        class="nav-button"
+
+      >
+
         Start screening
+
         <span>→</span>
+
       </a>
+
+
+
     </nav>
 
-  </header>
+
+
+  </div>
+
+
+
+</header>
+
+
+
+
+
+
+
 
 
   <!-- ================= MAIN ================= -->
 
+
+
   <main>
 
-    <!-- HERO -->
 
-    <section class="hero">
 
-      <div class="hero-content">
 
-        <div class="status-pill">
-          <span class="status-dot"></span>
-          Screening desk · Available now
-        </div>
 
-        <h1>
-          A smarter first step
-          <span>before your clinic visit.</span>
-        </h1>
+    <!-- ================= PREMIUM HERO ================= -->
+  <section class="hero premium-hero">
+    <div class="hero-glow hero-glow-one"></div><div class="hero-glow hero-glow-two"></div>
+    <div class="hero-content">
+      <div class="hero-badge"><span class="hero-badge-dot"></span>AI-assisted clinic support · Available 24×7</div>
+      <h1>Smarter healthcare <span>starts with the right first step.</span></h1>
+      <p class="lede">Share your symptoms, receive AI-assisted guidance, find the right doctor and manage your appointment — all from one simple clinic assistant.</p>
+      <div class="hero-actions"><a href="/predict" class="btn-primary hero-primary-btn"><span>Start Screening</span><span class="btn-arrow">→</span></a><button type="button" class="hero-chat-btn" onclick="document.getElementById('chatbot-button').click()"><span class="hero-chat-icon">✦</span> Talk to AI Assistant</button></div>
+      <div class="hero-mini-features"><div class="hero-mini-feature"><span>✓</span><div><strong>Quick</strong><small>Simple screening</small></div></div><div class="hero-mini-feature"><span>✓</span><div><strong>AI Assisted</strong><small>Smart guidance</small></div></div><div class="hero-mini-feature"><span>✓</span><div><strong>Connected</strong><small>Doctor booking</small></div></div></div>
+    </div>
+    <div class="hero-visual premium-hero-visual"><div class="hero-dot-grid"></div><div class="ai-dashboard-card">
+      <div class="ai-dashboard-header"><div class="ai-dashboard-title"><div class="ai-logo">✦</div><div><span>AI HEALTH ASSISTANT</span><strong>Sanjeevani</strong></div></div><div class="ai-live-status"><span></span> Online</div></div>
+      <div class="ai-welcome-card"><div class="ai-avatar">✦</div><div><span>Sanjeevani Assistant</span><p>Hello! Tell me how you're feeling today. I'll help you find the right next step.</p></div></div>
+      <div class="ai-capability-grid"><div class="ai-capability"><div class="capability-icon">♡</div><div><span>AI Screening</span><strong>Symptom guidance</strong></div><div class="capability-arrow">→</div></div><div class="ai-capability"><div class="capability-icon">◉</div><div><span>Smart Routing</span><strong>Find your doctor</strong></div><div class="capability-arrow">→</div></div><div class="ai-capability"><div class="capability-icon">▣</div><div><span>Appointments</span><strong>Book available slots</strong></div><div class="capability-arrow">→</div></div><div class="ai-capability"><div class="capability-icon">◌</div><div><span>Voice Support</span><strong>Listen to responses</strong></div><div class="capability-arrow">→</div></div></div>
+      <div class="ai-dashboard-footer"><div class="ai-secure-icon">✓</div><div><strong>Ready when you are</strong><span>Start a conversation with your clinic assistant</span></div><button type="button" onclick="document.getElementById('chatbot-button').click()">→</button></div>
+    </div><div class="hero-floating-card"><div class="floating-ai-icon">✦</div><div><strong>AI Assistant</strong><span>Ready to help</span></div><div class="floating-online-dot"></div></div></div>
+  </section>
 
-        <p class="lede">
-          Share a few basic health details and receive an instant
-          screening estimate. Simple, quick and designed to help
-          guide the next step.
-        </p>
+  <!-- ================================================= -->
+<!-- HOW SANJEEVANI WORKS -->
+<!-- ================================================= -->
 
-        <div class="cta-row">
+<section class="sj-work-section" id="how-it-works">
 
-          <a href="/predict" class="btn-primary">
+  <div class="sj-section-container">
 
-            <span>Start screening</span>
+    <div class="sj-section-heading">
 
-            <span class="btn-arrow">
-              →
-            </span>
+      <div class="sj-heading-left">
 
-          </a>
-
-          <div class="secure-note">
-            <span class="mini-icon">✓</span>
-            Takes under a minute
-          </div>
-
-        </div>
-
-
-        <!-- STATS -->
-
-        <div class="stat-row">
-
-          <div class="stat-item">
-
-            <div class="stat-icon">
-              <span>01</span>
-            </div>
-
-            <div>
-              <div class="stat-num">4</div>
-              <div class="stat-label">quick questions</div>
-            </div>
-
-          </div>
-
-
-          <div class="stat-item">
-
-            <div class="stat-icon">
-              <span>02</span>
-            </div>
-
-            <div>
-              <div class="stat-num">&lt;1 min</div>
-              <div class="stat-label">to a result</div>
-            </div>
-
-          </div>
-
-
-          <div class="stat-item">
-
-            <div class="stat-icon">
-              <span>03</span>
-            </div>
-
-            <div>
-              <div class="stat-num">24×7</div>
-              <div class="stat-label">screening desk</div>
-            </div>
-
-          </div>
-
-        </div>
-
-      </div>
-
-
-      <!-- ================= HERO VISUAL ================= -->
-
-      <div class="hero-visual">
-
-        <div class="floating-circle circle-one"></div>
-        <div class="floating-circle circle-two"></div>
-
-        <div class="medical-card">
-
-          <div class="card-top">
-
-            <div>
-              <span class="tiny-label">PATIENT SCREENING</span>
-              <h3>Health snapshot</h3>
-            </div>
-
-            <div class="live-indicator">
-              <span></span>
-              LIVE
-            </div>
-
-          </div>
-
-
-          <div class="health-score">
-
-            <div class="score-ring">
-
-              <div class="score-inner">
-                <strong>84</strong>
-                <span>CHECK</span>
-              </div>
-
-            </div>
-
-            <div class="score-text">
-
-              <span class="score-label">SCREENING STATUS</span>
-
-              <h4>Assessment ready</h4>
-
-              <p>
-                Your information has been prepared
-                for screening.
-              </p>
-
-            </div>
-
-          </div>
-
-
-          <!-- VITAL CARDS -->
-
-          <div class="vitals-grid">
-
-            <div class="vital-box">
-
-              <div class="vital-icon temperature-icon">
-                ♨
-              </div>
-
-              <div>
-                <span>Temperature</span>
-                <strong>101.2°F</strong>
-              </div>
-
-            </div>
-
-
-            <div class="vital-box">
-
-              <div class="vital-icon cough-icon">
-                +
-              </div>
-
-              <div>
-                <span>Cough</span>
-                <strong>Mild</strong>
-              </div>
-
-            </div>
-
-
-            <div class="vital-box">
-
-              <div class="vital-icon city-icon">
-                ◎
-              </div>
-
-              <div>
-                <span>City</span>
-                <strong>Jaipur</strong>
-              </div>
-
-            </div>
-
-
-            <div class="vital-box">
-
-              <div class="vital-icon age-icon">
-                #
-              </div>
-
-              <div>
-                <span>Age</span>
-                <strong>34 years</strong>
-              </div>
-
-            </div>
-
-          </div>
-
-
-          <div class="ready-bar">
-
-            <span class="ready-check">✓</span>
-
-            <div>
-              <strong>Ready in seconds</strong>
-              <span>Screening information processed</span>
-            </div>
-
-            <span class="ready-arrow">→</span>
-
-          </div>
-
-        </div>
-
-
-        <!-- FLOATING MINI CARD -->
-
-        <div class="floating-card">
-
-          <div class="floating-check">✓</div>
-
-          <div>
-            <strong>Quick & simple</strong>
-            <span>Designed for easy screening</span>
-          </div>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= TRUST STRIP ================= -->
-
-    <section class="trust-strip">
-
-      <div class="trust-content">
-
-        <span class="trust-label">A simple screening journey</span>
-
-        <div class="trust-line"></div>
-
-        <span class="trust-text">
-          Enter details
-        </span>
-
-        <span class="trust-arrow">→</span>
-
-        <span class="trust-text">
-          Get estimate
-        </span>
-
-        <span class="trust-arrow">→</span>
-
-        <span class="trust-text">
-          Consult doctor
-        </span>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= REASONS ================= -->
-
-    <section class="reasons-section">
-
-      <div class="section-heading">
-
-        <div>
-          <span class="section-eyebrow">WHY SANJEEVANI</span>
-
-          <h2>
-            Designed to make
-            screening easier.
-          </h2>
-        </div>
-
-        <p>
-          A clean first step that helps organize basic
-          information before professional medical evaluation.
-        </p>
-
-      </div>
-
-
-      <div class="reasons">
-
-        <div class="reason-card">
-
-          <div class="reason-number">01</div>
-
-          <div class="reason-icon">
-            ↗
-          </div>
-
-          <h3>No queue, no waiting</h3>
-
-          <p>
-            Fill the form from home or the waiting room.
-            Your screening estimate is generated immediately
-            after submission.
-          </p>
-
-          <span class="card-link">
-            Fast screening →
-          </span>
-
-        </div>
-
-
-        <div class="reason-card featured">
-
-          <div class="reason-number">02</div>
-
-          <div class="reason-icon">
-            ◈
-          </div>
-
-          <h3>Data-driven screening</h3>
-
-          <p>
-            The screening model uses patient information
-            such as age, temperature, cough and city to
-            estimate risk.
-          </p>
-
-          <span class="card-link">
-            Model assisted →
-          </span>
-
-        </div>
-
-
-        <div class="reason-card">
-
-          <div class="reason-number">03</div>
-
-          <div class="reason-icon">
-            ♡
-          </div>
-
-          <h3>A guide, not a diagnosis</h3>
-
-          <p>
-            The result is only a screening estimate.
-            A healthcare professional should make the
-            final medical assessment.
-          </p>
-
-          <span class="card-link">
-            Doctor first →
-          </span>
-
-        </div>
-
-      </div>
-
-    </section>
-
-
-    <!-- ================= CTA ================= -->
-
-    <section class="final-cta">
-
-      <div class="cta-decoration"></div>
-
-      <div class="final-cta-content">
-
-        <span class="section-eyebrow light">
-          READY WHEN YOU ARE
+        <span class="sj-eyebrow">
+          HOW SANJEEVANI WORKS
         </span>
 
         <h2>
-          Take the first step
-          in under a minute.
+          From symptoms to the
+          <span>right next step.</span>
         </h2>
-
-        <p>
-          Enter a few basic details and receive
-          your screening estimate.
-        </p>
-
-        <a href="/predict" class="btn-light">
-          Start screening
-          <span>→</span>
-        </a>
 
       </div>
 
-    </section>
+      <p class="sj-heading-description">
+        Sanjeevani brings screening, AI assistance,
+        doctor routing and appointment booking together
+        in one simple experience.
+      </p>
 
-  </main>
-
-
-  <!-- ================= FOOTER ================= -->
-
-  <footer class="site-footer">
-
-    <div class="footer-brand">
-      <span class="footer-dot"></span>
-      Sanjeevani Screening Clinic
     </div>
 
-    <p>
-      This tool assists screening and triage.
-      It does not replace professional medical diagnosis.
-    </p>
 
-  </footer>
+    <!-- ================= PROCESS ================= -->
+
+    <div class="sj-process-grid">
+
+
+      <!-- STEP 01 -->
+
+      <article class="sj-process-card">
+
+        <div class="sj-process-top">
+
+          <span class="sj-step-number">
+            01
+          </span>
+
+          <div class="sj-step-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M8 9h8M8 13h5M5 20l1.7-3.4A8 8 0 1 1 20 11a8 8 0 0 1-8 8H5z"
+                stroke="currentColor"
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+        </div>
+
+        <h3>
+          Tell us what’s wrong
+        </h3>
+
+        <p>
+          Describe your symptoms in the AI assistant
+          or upload an injury image when visual
+          information can help.
+        </p>
+
+        <div class="sj-card-tag">
+          <span></span>
+          Symptoms & injury image
+        </div>
+
+      </article>
+
+
+      <!-- STEP 02 -->
+
+      <article class="sj-process-card">
+
+        <div class="sj-process-top">
+
+          <span class="sj-step-number">
+            02
+          </span>
+
+          <div class="sj-step-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <path
+                d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+            </svg>
+          </div>
+
+        </div>
+
+        <h3>
+          AI assists you
+        </h3>
+
+        <p>
+          The assistant helps organize your information
+          and provides initial guidance for the next
+          step in your clinic journey.
+        </p>
+
+        <div class="sj-card-tag">
+          <span></span>
+          AI-assisted guidance
+        </div>
+
+      </article>
+
+
+      <!-- STEP 03 -->
+
+      <article class="sj-process-card">
+
+        <div class="sj-process-top">
+
+          <span class="sj-step-number">
+            03
+          </span>
+
+          <div class="sj-step-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <circle
+                cx="12"
+                cy="8"
+                r="3.5"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+              <path
+                d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+              <path
+                d="M18 5v4M16 7h4"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+            </svg>
+          </div>
+
+        </div>
+
+        <h3>
+          Find the right doctor
+        </h3>
+
+        <p>
+          Based on the conversation, Sanjeevani can
+          guide you toward a relevant specialization
+          and available doctor.
+        </p>
+
+        <div class="sj-card-tag">
+          <span></span>
+          Smart doctor routing
+        </div>
+
+      </article>
+
+
+      <!-- STEP 04 -->
+
+      <article class="sj-process-card">
+
+        <div class="sj-process-top">
+
+          <span class="sj-step-number">
+            04
+          </span>
+
+          <div class="sj-step-icon">
+            <svg
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              aria-hidden="true"
+            >
+              <rect
+                x="4"
+                y="5"
+                width="16"
+                height="15"
+                rx="2"
+                stroke="currentColor"
+                stroke-width="1.7"
+              />
+              <path
+                d="M8 3v4M16 3v4M4 10h16"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+              />
+              <path
+                d="m9 15 2 2 4-4"
+                stroke="currentColor"
+                stroke-width="1.7"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
+
+        </div>
+
+        <h3>
+          Book your appointment
+        </h3>
+
+        <p>
+          View an available slot, complete the
+          appointment flow and receive your booking
+          confirmation inside the assistant.
+        </p>
+
+        <div class="sj-card-tag">
+          <span></span>
+          Booking & confirmation
+        </div>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+
+<!-- ================================================= -->
+<!-- AI CAPABILITIES -->
+<!-- ================================================= -->
+
+<section class="sj-capabilities-section">
+
+  <div class="sj-section-container">
+
+
+    <!-- SECTION HEADER -->
+
+    <div class="sj-capability-heading">
+
+      <span class="sj-eyebrow">
+        ONE ASSISTANT · MULTIPLE CAPABILITIES
+      </span>
+
+      <h2>
+        Everything you need,
+        <span>in one assistant.</span>
+      </h2>
+
+      <p>
+        Sanjeevani combines the tools needed for a
+        smoother first interaction with your clinic.
+      </p>
+
+    </div>
+
+
+    <!-- FEATURE GRID -->
+
+    <div class="sj-feature-grid">
+
+
+      <!-- AI CHAT -->
+
+      <article class="sj-feature-card sj-feature-large">
+
+        <div class="sj-feature-icon">
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 19l1.3-3A7 7 0 1 1 19 12a7 7 0 0 1-7 7H5z"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linejoin="round"
+            />
+            <path
+              d="M9 10h6M9 13h4"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+
+        </div>
+
+        <span class="sj-feature-label">
+          AI ASSISTANT
+        </span>
+
+        <h3>
+          Talk naturally about
+          your health concern.
+        </h3>
+
+        <p>
+          Ask questions and share symptoms through
+          a conversational clinic assistant designed
+          to help guide the next step.
+        </p>
+
+        <button
+          type="button"
+          class="sj-feature-action"
+          onclick="document.getElementById('chatbot-button').click()"
+        >
+          Open AI Assistant
+          <span>→</span>
+        </button>
+
+        <div class="sj-chat-preview">
+
+          <div class="sj-chat-preview-avatar">
+            ✦
+          </div>
+
+          <div>
+            <strong>Sanjeevani Assistant</strong>
+            <span>
+              Hi! Tell me how you're feeling today.
+            </span>
+          </div>
+
+          <div class="sj-chat-online">
+            <span></span>
+            Online
+          </div>
+
+        </div>
+
+      </article>
+
+
+      <!-- IMAGE -->
+
+      <article class="sj-feature-card">
+
+        <div class="sj-feature-icon">
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect
+              x="4"
+              y="4"
+              width="16"
+              height="16"
+              rx="3"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+            <circle
+              cx="9"
+              cy="9"
+              r="1.5"
+              stroke="currentColor"
+              stroke-width="1.6"
+            />
+            <path
+              d="m6 17 4-4 3 3 2-2 3 3"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+
+        </div>
+
+        <span class="sj-feature-label">
+          IMAGE ASSISTANCE
+        </span>
+
+        <h3>
+          Upload an injury image
+        </h3>
+
+        <p>
+          Share a supported injury photo directly
+          inside the chatbot when visual information
+          is useful.
+        </p>
+
+      </article>
+
+
+      <!-- DOCTOR -->
+
+      <article class="sj-feature-card">
+
+        <div class="sj-feature-icon">
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <circle
+              cx="12"
+              cy="8"
+              r="3.5"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+            <path
+              d="M5 20c.8-4 3.2-6 7-6s6.2 2 7 6"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+
+        </div>
+
+        <span class="sj-feature-label">
+          DOCTOR MATCHING
+        </span>
+
+        <h3>
+          Route to the right care
+        </h3>
+
+        <p>
+          Connect the patient's concern with
+          an appropriate specialization and
+          available doctor.
+        </p>
+
+      </article>
+
+
+      <!-- APPOINTMENT -->
+
+      <article class="sj-feature-card">
+
+        <div class="sj-feature-icon">
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <rect
+              x="4"
+              y="5"
+              width="16"
+              height="15"
+              rx="2"
+              stroke="currentColor"
+              stroke-width="1.8"
+            />
+            <path
+              d="M8 3v4M16 3v4M4 10h16"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+
+        </div>
+
+        <span class="sj-feature-label">
+          APPOINTMENTS
+        </span>
+
+        <h3>
+          Book available slots
+        </h3>
+
+        <p>
+          Continue from doctor selection to
+          appointment payment and booking
+          confirmation.
+        </p>
+
+      </article>
+
+
+      <!-- VOICE -->
+
+      <article class="sj-feature-card">
+
+        <div class="sj-feature-icon">
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M5 10v4M9 7v10M13 5v14M17 8v8M21 10v4"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+
+        </div>
+
+        <span class="sj-feature-label">
+          VOICE SUPPORT
+        </span>
+
+        <h3>
+          Listen to AI responses
+        </h3>
+
+        <p>
+          Use integrated ElevenLabs text-to-speech
+          to hear supported chatbot responses
+          directly from the interface.
+        </p>
+
+      </article>
+
+
+      <!-- HISTORY -->
+
+      <article class="sj-feature-card">
+
+        <div class="sj-feature-icon">
+
+          <svg
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            fill="none"
+            aria-hidden="true"
+          >
+            <path
+              d="M12 7v5l3 2"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <path
+              d="M5.5 6.5A8 8 0 1 1 4 12"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+            <path
+              d="M4 6v5h5"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            />
+          </svg>
+
+        </div>
+
+        <span class="sj-feature-label">
+          PATIENT CONTEXT
+        </span>
+
+        <h3>
+          Continue with your history
+        </h3>
+
+        <p>
+          Logged-in patient context can support
+          a more connected clinic experience
+          across conversations.
+        </p>
+
+      </article>
+
+    </div>
+
+  </div>
+
+</section>
+<!-- ================================================= -->
+<!-- PREMIUM FINAL CTA -->
+<!-- ================================================= -->
+
+<section class="sj-final-cta">
+
+  <div class="sj-final-cta-inner">
+
+    <div class="sj-final-cta-glow"></div>
+
+    <div class="sj-final-cta-content">
+
+      <span class="sj-final-eyebrow">
+        SANJEEVANI · SCREENING CLINIC
+      </span>
+
+      <h2>
+        Your next step to
+        <span>better care starts here.</span>
+      </h2>
+
+      <p>
+        Share your concern with Sanjeevani and move
+        from initial screening to the right doctor
+        and appointment — all in one connected experience.
+      </p>
+
+      <div class="sj-final-actions">
+
+        <a
+          href="/predict"
+          class="sj-final-primary"
+        >
+          Start Screening
+          <span>→</span>
+        </a>
+
+        <button
+          type="button"
+          class="sj-final-secondary"
+          onclick="document.getElementById('chatbot-button').click()"
+        >
+          <span class="sj-final-ai-icon">✦</span>
+          Talk to AI Assistant
+        </button>
+
+      </div>
+
+    </div>
+
+
+    <!-- RIGHT SIDE MINI DASHBOARD -->
+
+    <div class="sj-final-panel">
+
+      <div class="sj-final-panel-header">
+
+        <div class="sj-final-panel-logo">
+          ✦
+        </div>
+
+        <div>
+          <span>AI HEALTH ASSISTANT</span>
+          <strong>Sanjeevani</strong>
+        </div>
+
+        <div class="sj-final-online">
+          <i></i>
+          Online
+        </div>
+
+      </div>
+
+
+      <div class="sj-final-message">
+
+        <div class="sj-final-message-icon">
+          ✦
+        </div>
+
+        <div>
+          <strong>How can I help you today?</strong>
+          <p>
+            Tell me about your symptoms or
+            ask for help finding a doctor.
+          </p>
+        </div>
+
+      </div>
+
+
+      <div class="sj-final-options">
+
+        <div>
+          <span>01</span>
+          AI Screening
+        </div>
+
+        <div>
+          <span>02</span>
+          Doctor Matching
+        </div>
+
+        <div>
+          <span>03</span>
+          Appointment
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+<!-- ================================================= -->
+<!-- PREMIUM FOOTER -->
+<!-- ================================================= -->
+
+<footer class="sj-footer">
+
+  <div class="sj-footer-inner">
+
+
+    <!-- BRAND -->
+
+    <div class="sj-footer-brand">
+
+      <div class="sj-footer-brand-top">
+
+        <div class="sj-footer-logo">
+          ♥
+        </div>
+
+        <div>
+          <strong>Sanjeevani</strong>
+          <span>SCREENING CLINIC</span>
+        </div>
+
+      </div>
+
+      <p>
+        AI-assisted clinic support designed to make
+        screening, doctor routing and appointment
+        booking simpler.
+      </p>
+
+    </div>
+
+
+    <!-- PLATFORM -->
+
+    <div class="sj-footer-column">
+
+      <span class="sj-footer-title">
+        PLATFORM
+      </span>
+
+      <a href="/predict">
+        Start Screening
+      </a>
+
+      <button
+        type="button"
+        onclick="document.getElementById('chatbot-button').click()"
+      >
+        AI Assistant
+      </button>
+
+      <a href="#how-it-works">
+        How it works
+      </a>
+
+    </div>
+
+
+    <!-- CAPABILITIES -->
+
+    <div class="sj-footer-column">
+
+      <span class="sj-footer-title">
+        CAPABILITIES
+      </span>
+
+      <span>Symptom Guidance</span>
+      <span>Doctor Matching</span>
+      <span>Appointment Booking</span>
+      <span>Voice Assistance</span>
+
+    </div>
+
+
+    <!-- PATIENT -->
+
+    <div class="sj-footer-column">
+
+      <span class="sj-footer-title">
+        PATIENT
+      </span>
+
+      {% if patient_name %}
+
+      <span>
+        {{ patient_name }}
+      </span>
+
+      <a href="/logout">
+        Logout
+      </a>
+
+      {% else %}
+
+      <a href="/login">
+        Login
+      </a>
+
+      <a href="/register">
+        Register
+      </a>
+
+      {% endif %}
+
+    </div>
+
+  </div>
+
+
+  <!-- FOOTER BOTTOM -->
+
+  <div class="sj-footer-bottom">
+
+    <div class="sj-footer-bottom-inner">
+
+      <span>
+        © 2026 Sanjeevani Screening Clinic
+      </span>
+
+      <p>
+        Sanjeevani provides AI-assisted screening
+        guidance and does not replace professional
+        medical diagnosis or emergency care.
+      </p>
+
+      <div class="sj-footer-status">
+        <i></i>
+        System available
+      </div>
+
+    </div>
+
+  </div>
+
+</footer>
+
+
+
+
+
+
+
+  <!-- ================================================= -->
+
+  <!-- CHATBOT BUTTON -->
+
+  <!-- ================================================= -->
+
+
+
+  <button
+
+    id="chatbot-button"
+
+    class="chatbot-button"
+
+    type="button"
+
+    aria-label="Open clinic assistant"
+
+  >
+
+
+
+    💬
+
+
+
+  </button>
+
+
+
+
+
+
+
+  <!-- ================================================= -->
+
+  <!-- CHATBOT WINDOW -->
+
+  <!-- ================================================= -->
+
+
+
+  <div
+
+    id="chatbot-window"
+
+    class="chatbot-window"
+
+  >
+
+
+
+
+
+    <!-- ================= CHATBOT HEADER ================= -->
+
+
+
+    <div class="chatbot-header">
+
+
+
+
+
+      <div>
+
+
+
+        <strong>
+
+          Sanjeevani Assistant
+
+        </strong>
+
+
+
+        <span>
+
+          Clinic support
+
+        </span>
+
+
+
+      </div>
+
+
+
+
+
+      <button
+
+        id="chatbot-close"
+
+        class="chatbot-close"
+
+        type="button"
+
+        aria-label="Close chatbot"
+
+      >
+
+
+
+        ×
+
+
+
+      </button>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- ================= CHAT MESSAGES ================= -->
+
+
+
+    <div
+
+      id="chatbot-messages"
+
+      class="chatbot-messages"
+
+    >
+
+
+
+
+
+      <div class="chatbot-message bot-message">
+
+
+
+        Hi, how can I help you?
+
+
+
+      </div>
+
+
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- ================================================= -->
+
+    <!-- IMAGE PREVIEW -->
+
+    <!-- ================================================= -->
+
+
+
+    <div
+
+      id="image-preview-container"
+
+      class="image-preview-container"
+
+      style="display: none;"
+
+    >
+
+
+
+      <div class="image-preview-wrapper">
+
+
+
+        <img
+
+          id="image-preview"
+
+          class="image-preview"
+
+          src=""
+
+          alt="Selected injury photo"
+
+        />
+
+
+
+
+
+        <button
+
+          id="remove-image"
+
+          class="remove-image-button"
+
+          type="button"
+
+          aria-label="Remove image"
+
+        >
+
+
+
+          ×
+
+
+
+        </button>
+
+
+
+      </div>
+
+
+
+
+
+      <span class="image-preview-text">
+
+        Injury photo selected
+
+      </span>
+
+
+
+    </div>
+
+
+
+
+
+
+
+    <!-- ================================================= -->
+
+    <!-- CHATBOT INPUT -->
+
+    <!-- ================================================= -->
+
+
+
+    <div class="chatbot-input-area">
+
+
+
+
+
+      <input
+
+        id="injury-image-input"
+
+        type="file"
+
+        accept="image/jpeg,image/png,image/webp"
+
+        style="display: none;"
+
+      />
+
+
+
+
+
+      <button
+
+        id="injury-upload-button"
+
+        class="injury-upload-button"
+
+        type="button"
+
+        title="Upload injury photo"
+
+        aria-label="Upload injury photo"
+
+      >
+
+
+
+        📎
+
+
+
+      </button>
+
+      <!-- ==========================================
+           ELEVENLABS SPEECH TO SPEECH BUTTON
+           ========================================== -->
+
+      <button
+        id="sts-record-button"
+        class="sts-record-button"
+        type="button"
+        title="Record voice"
+        aria-label="Record voice"
+      >
+        🎙️
+      </button>
+
+
+
+      <input
+
+        id="chatbot-input"
+
+        type="text"
+
+        placeholder="Type your message..."
+
+        autocomplete="off"
+
+      />
+
+
+
+
+
+      <button
+
+        id="chatbot-send"
+
+        type="button"
+
+      >
+
+
+
+        Send
+
+
+
+      </button>
+
+
+
+
+
+    </div>
+
+
+
+
+
+  </div>
+
+
+
+
+
+
+
+  <!-- ================================================= -->
+
+  <!-- CHATBOT JAVASCRIPT -->
+
+  <!-- ================================================= -->
+
+
+
+  <script>
+
+
+
+
+
+    // ==============================================
+
+    // GET ELEMENTS
+
+    // ==============================================
+
+
+
+    const chatbotButton =
+
+      document.getElementById(
+
+        "chatbot-button"
+
+      );
+
+
+
+
+
+    const chatbotWindow =
+
+      document.getElementById(
+
+        "chatbot-window"
+
+      );
+
+
+
+
+
+    const chatbotClose =
+
+      document.getElementById(
+
+        "chatbot-close"
+
+      );
+
+
+
+
+
+    const chatbotInput =
+
+      document.getElementById(
+
+        "chatbot-input"
+
+      );
+
+
+
+
+
+    const chatbotSend =
+
+      document.getElementById(
+
+        "chatbot-send"
+
+      );
+
+
+
+
+
+    const chatbotMessages =
+
+      document.getElementById(
+
+        "chatbot-messages"
+
+      );
+
+
+
+
+
+    const injuryImageInput =
+
+      document.getElementById(
+
+        "injury-image-input"
+
+      );
+
+
+
+
+
+    const injuryUploadButton =
+
+      document.getElementById(
+
+        "injury-upload-button"
+
+      );
+
+
+
+
+
+    const imagePreviewContainer =
+
+      document.getElementById(
+
+        "image-preview-container"
+
+      );
+
+
+
+
+
+    const imagePreview =
+
+      document.getElementById(
+
+        "image-preview"
+
+      );
+
+
+
+
+
+    const removeImageButton =
+
+      document.getElementById(
+
+        "remove-image"
+
+      );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // SELECTED IMAGE
+
+    // ==============================================
+
+
+
+    let selectedImage = null;
+
+
+
+
+
+
+
+    // ==============================================
+
+    // OPEN CHATBOT
+
+    // ==============================================
+
+
+
+    chatbotButton.addEventListener(
+
+      "click",
+
+      function () {
+
+
+
+        chatbotWindow.style.display =
+
+          "flex";
+
+
+
+      }
+
+    );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // CLOSE CHATBOT
+
+    // ==============================================
+
+
+
+    chatbotClose.addEventListener(
+
+      "click",
+
+      function () {
+
+
+
+        chatbotWindow.style.display =
+
+          "none";
+
+
+
+      }
+
+    );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // IMAGE UPLOAD
+
+    // ==============================================
+
+
+
+    injuryUploadButton.addEventListener(
+
+      "click",
+
+      function () {
+
+
+
+        injuryImageInput.click();
+
+
+
+      }
+
+    );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // IMAGE SELECTED
+
+    // ==============================================
+
+
+
+    injuryImageInput.addEventListener(
+
+      "change",
+
+      function () {
+
+
+
+        const file =
+
+          injuryImageInput.files[0];
+
+
+
+
+
+        if (!file) {
+
+
+
+          return;
+
+
+
+        }
+
+
+
+
+
+        selectedImage = file;
+
+
+
+
+
+        const imageURL =
+
+          URL.createObjectURL(file);
+
+
+
+
+
+        imagePreview.src =
+
+          imageURL;
+
+
+
+
+
+        imagePreviewContainer.style.display =
+
+          "block";
+
+
+
+
+
+        chatbotMessages.scrollTop =
+
+          chatbotMessages.scrollHeight;
+
+
+
+      }
+
+    );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // REMOVE IMAGE
+
+    // ==============================================
+
+
+
+    removeImageButton.addEventListener(
+
+      "click",
+
+      function () {
+
+
+
+        selectedImage = null;
+
+
+
+        injuryImageInput.value = "";
+
+
+
+        imagePreview.src = "";
+
+
+
+        imagePreviewContainer.style.display =
+
+          "none";
+
+
+
+      }
+
+    );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // TIME FORMATTER
+
+    // ==============================================
+
+
+
+    function formatTime(timeValue) {
+
+
+
+      if (!timeValue) {
+
+
+
+        return "";
+
+
+
+      }
+
+
+
+
+
+      let timeString =
+
+        String(timeValue);
+
+
+
+
+
+      /*
+
+       * Handle values like:
+
+       *
+
+       * 16:00
+
+       * 16:00:00
+
+       *
+
+       * Also handle accidental numeric
+
+       * second values such as:
+
+       *
+
+       * 57600
+
+       */
+
+
+
+      if (
+
+        !timeString.includes(":") &&
+
+        !isNaN(timeString)
+
+      ) {
+
+
+
+        const totalSeconds =
+
+          Number(timeString);
+
+
+
+
+
+        const hours =
+
+          Math.floor(
+
+            totalSeconds / 3600
+
+          );
+
+
+
+
+
+        const minutes =
+
+          Math.floor(
+
+            (totalSeconds % 3600) / 60
+
+          );
+
+
+
+
+
+        timeString =
+
+          String(hours).padStart(2, "0") +
+
+          ":" +
+
+          String(minutes).padStart(2, "0");
+
+
+
+      }
+
+
+
+
+
+      const parts =
+
+        timeString.split(":");
+
+
+
+
+
+      let hour =
+
+        parseInt(parts[0], 10);
+
+
+
+
+
+      const minute =
+
+        parts[1] || "00";
+
+
+
+
+
+      if (isNaN(hour)) {
+
+
+
+        return timeString;
+
+
+
+      }
+
+
+
+
+
+      const period =
+
+        hour >= 12
+
+          ? "PM"
+
+          : "AM";
+
+
+
+
+
+      if (hour === 0) {
+
+
+
+        hour = 12;
+
+
+
+      }
+
+
+
+
+
+      if (hour > 12) {
+
+
+
+        hour -= 12;
+
+
+
+      }
+
+
+
+
+
+      return `${hour}:${minute} ${period}`;
+
+
+
+    }
+
+
+
+
+
+
+
+    // ==============================================
+
+    // DATE FORMATTER
+
+    // ==============================================
+
+
+
+    function formatDate(dateValue) {
+
+
+
+      if (!dateValue) {
+
+
+
+        return "";
+
+
+
+      }
+
+
+
+
+
+      const dateString =
+
+        String(dateValue);
+
+
+
+
+
+      const date =
+
+        new Date(
+
+          dateString + "T00:00:00"
+
+        );
+
+
+
+
+
+      if (isNaN(date.getTime())) {
+
+
+
+        return dateString;
+
+
+
+      }
+
+
+
+
+
+      return date.toLocaleDateString(
+
+        "en-US",
+
+        {
+
+          day: "numeric",
+
+          month: "long",
+
+          year: "numeric"
+
+        }
+
+      );
+
+
+
+    }
+
+
+
+
+
+
+
+    // ==============================================
+
+    // GET DOCTOR NAME
+
+    // ==============================================
+
+
+
+    function getDoctorName(appointment) {
+
+
+
+      return (
+
+        appointment.name ||
+
+        appointment.doctor ||
+
+        "Doctor"
+
+      );
+
+
+
+    }
+
+
+
+
+
+
+
+    // ==============================================
+
+    // GET APPOINTMENT DATE
+
+    // ==============================================
+
+
+
+    function getAppointmentDate(appointment) {
+
+
+
+      return (
+
+        appointment.available_date ||
+
+        appointment.date ||
+
+        ""
+
+      );
+
+
+
+    }
+
+
+
+
+
+
+
+    // ==============================================
+
+    // CREATE PAYMENT CARD
+
+    // ==============================================
+
+
+
+    function showPaymentCard(appointment) {
+
+
+
+
+
+      if (!appointment) {
+
+
+
+        return;
+
+
+
+      }
+
+
+
+
+
+      const paymentCard =
+
+        document.createElement("div");
+
+
+
+
+
+      paymentCard.className =
+
+        "chatbot-payment-card";
+
+
+
+
+
+      const doctorName =
+
+        getDoctorName(appointment);
+
+
+
+
+
+      const appointmentDate =
+
+        getAppointmentDate(appointment);
+
+
+
+
+
+      const startTime =
+
+        formatTime(
+
+          appointment.start_time
+
+        );
+
+
+
+
+
+      const endTime =
+
+        formatTime(
+
+          appointment.end_time
+
+        );
+
+
+
+
+
+      paymentCard.innerHTML = `
+
+
+
+        <div class="payment-title">
+
+          💳 Appointment Payment
+
+        </div>
+
+
+
+
+
+        <div class="payment-details">
+
+
+
+          <div>
+
+            <span>Doctor</span>
+
+
+
+            <strong>
+
+              ${doctorName}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Specialization</span>
+
+
+
+            <strong>
+
+              ${appointment.specialization || ""}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Date</span>
+
+
+
+            <strong>
+
+              ${formatDate(appointmentDate)}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Time</span>
+
+
+
+            <strong>
+
+              ${startTime} - ${endTime}
+
+            </strong>
+
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+        <div class="dummy-qr">
+
+
+
+          <div class="qr-pattern">
+
+
+
+            <div class="qr-corner top-left"></div>
+
+
+
+            <div class="qr-corner top-right"></div>
+
+
+
+            <div class="qr-corner bottom-left"></div>
+
+
+
+            <div class="qr-center">
+
+              SANJEEVANI
+
+            </div>
+
+
+
+          </div>
+
+
+
+        </div>
+
+
+
+
+
+        <button
+
+          type="button"
+
+          class="payment-done-button"
+
+        >
+
+
+
+          Payment Done
+
+
+
+        </button>
+
+
+
+
+
+        <div class="payment-status"></div>
+
+
+
+      `;
+
+
+
+
+
+      chatbotMessages.appendChild(
+
+        paymentCard
+
+      );
+
+
+
+
+
+      chatbotMessages.scrollTop =
+
+        chatbotMessages.scrollHeight;
+
+
+
+
+
+
+
+      // ==========================================
+
+      // PAYMENT BUTTON
+
+      // ==========================================
+
+
+
+      const paymentButton =
+
+        paymentCard.querySelector(
+
+          ".payment-done-button"
+
+        );
+
+
+
+
+
+      const paymentStatus =
+
+        paymentCard.querySelector(
+
+          ".payment-status"
+
+        );
+
+
+
+
+
+      paymentButton.addEventListener(
+
+        "click",
+
+        async function () {
+
+
+
+
+
+          paymentButton.disabled =
+
+            true;
+
+
+
+
+
+          paymentButton.textContent =
+
+            "Processing...";
+
+
+
+
+
+          paymentStatus.textContent =
+
+            "";
+
+
+
+
+
+          try {
+
+
+
+
+
+            const response =
+
+              await fetch(
+
+                "/payment/complete",
+
+                {
+
+                  method: "POST"
+
+                }
+
+              );
+
+
+
+
+
+            const data =
+
+              await response.json();
+
+
+
+
+
+            // ==================================
+
+            // SUCCESS
+
+            // ==================================
+
+
+
+            if (data.success) {
+
+
+
+
+
+              paymentButton.style.display =
+
+                "none";
+
+
+
+
+
+              paymentStatus.textContent =
+
+                "Payment successfully done.";
+
+
+
+
+
+              paymentStatus.className =
+
+                "payment-status payment-success";
+
+
+
+
+
+              showAppointmentConfirmation(
+
+                data.appointment
+
+              );
+
+
+
+            }
+
+
+
+
+
+            // ==================================
+
+            // FAILURE
+
+            // ==================================
+
+
+
+            else {
+
+
+
+
+
+              paymentButton.disabled =
+
+                false;
+
+
+
+
+
+              paymentButton.textContent =
+
+                "Payment Done";
+
+
+
+
+
+              paymentStatus.textContent =
+
+                data.message ||
+
+                "Payment could not be completed.";
+
+
+
+
+
+              paymentStatus.className =
+
+                "payment-status payment-error";
+
+
+
+            }
+
+
+
+          }
+
+
+
+
+
+          catch (error) {
+
+
+
+
+
+            console.error(
+
+              "Payment error:",
+
+              error
+
+            );
+
+
+
+
+
+            paymentButton.disabled =
+
+              false;
+
+
+
+
+
+            paymentButton.textContent =
+
+              "Payment Done";
+
+
+
+
+
+            paymentStatus.textContent =
+
+              "Something went wrong. Please try again.";
+
+
+
+
+
+            paymentStatus.className =
+
+              "payment-status payment-error";
+
+
+
+          }
+
+
+
+
+
+          chatbotMessages.scrollTop =
+
+            chatbotMessages.scrollHeight;
+
+
+
+        }
+
+      );
+
+
+
+    }
+
+
+
+
+
+
+
+    // ==============================================
+
+    // APPOINTMENT CONFIRMATION
+
+    // ==============================================
+
+
+
+    function showAppointmentConfirmation(
+
+      appointment
+
+    ) {
+
+
+
+
+
+      if (!appointment) {
+
+
+
+        return;
+
+
+
+      }
+
+
+
+
+
+      const confirmation =
+
+        document.createElement("div");
+
+
+
+
+
+      confirmation.className =
+
+        "chatbot-message bot-message appointment-confirmation";
+
+
+
+
+
+      const doctorName =
+
+        getDoctorName(appointment);
+
+
+
+
+
+      const appointmentDate =
+
+        getAppointmentDate(appointment);
+
+
+
+
+
+      const startTime =
+
+        formatTime(
+
+          appointment.start_time
+
+        );
+
+
+
+
+
+      const endTime =
+
+        formatTime(
+
+          appointment.end_time
+
+        );
+
+
+
+
+
+      const appointmentId =
+
+        appointment.id ||
+
+        appointment.appointment_id ||
+
+        "";
+
+
+
+
+
+      const patientName =
+
+        appointment.patient_name ||
+
+        "Patient";
+
+
+
+
+
+      confirmation.innerHTML = `
+
+
+
+        <div class="confirmation-title">
+
+          🎉 Appointment Confirmed
+
+        </div>
+
+
+
+
+
+        <p>
+
+          Your appointment has been booked successfully.
+
+        </p>
+
+
+
+
+
+        <div class="confirmation-details">
+
+
+
+          <div>
+
+            <span>Appointment ID</span>
+
+
+
+            <strong>
+
+              ${appointmentId}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Patient</span>
+
+
+
+            <strong>
+
+              ${patientName}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Doctor</span>
+
+
+
+            <strong>
+
+              ${doctorName}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Specialization</span>
+
+
+
+            <strong>
+
+              ${appointment.specialization || ""}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Date</span>
+
+
+
+            <strong>
+
+              ${formatDate(appointmentDate)}
+
+            </strong>
+
+          </div>
+
+
+
+
+
+          <div>
+
+            <span>Time</span>
+
+
+
+            <strong>
+
+              ${startTime} - ${endTime}
+
+            </strong>
+
+          </div>
+
+
+
+        </div>
+
+
+
+      `;
+
+
+
+
+
+      chatbotMessages.appendChild(
+
+        confirmation
+
+      );
+
+
+
+
+
+      chatbotMessages.scrollTop =
+
+        chatbotMessages.scrollHeight;
+
+
+
+    }
+
+
+
+
+
+
+
+    // ==============================================
+
+    // SEND MESSAGE
+
+    // ==============================================
+
+
+
+    chatbotSend.addEventListener(
+
+      "click",
+
+      sendChat
+
+    );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // ENTER KEY
+
+    // ==============================================
+
+
+
+    chatbotInput.addEventListener(
+
+      "keydown",
+
+      function (event) {
+
+
+
+        if (
+
+          event.key === "Enter"
+
+        ) {
+
+
+
+          event.preventDefault();
+
+
+
+          sendChat();
+
+
+
+        }
+
+
+
+      }
+
+    );
+
+
+
+
+
+
+
+    // ==============================================
+
+    // CHAT FUNCTION
+
+    // ==============================================
+
+
+
+    async function sendChat() {
+
+
+
+
+
+      const message =
+
+        chatbotInput.value.trim();
+
+
+
+
+
+      if (
+
+        !message &&
+
+        !selectedImage
+
+      ) {
+
+
+
+        return;
+
+
+
+      }
+
+
+
+
+
+
+
+      // ============================================
+
+      // SHOW USER MESSAGE
+
+      // ============================================
+
+
+
+      if (message) {
+
+
+
+
+
+        const userMessage =
+
+          document.createElement(
+
+            "div"
+
+          );
+
+
+
+
+
+        userMessage.className =
+
+          "chatbot-message user-message";
+
+
+
+
+
+        userMessage.textContent =
+
+          message;
+
+
+
+
+
+        chatbotMessages.appendChild(
+
+          userMessage
+
+        );
+
+
+
+      }
+
+
+
+
+
+
+
+      // ============================================
+
+      // SHOW USER IMAGE
+
+      // ============================================
+
+
+
+      if (selectedImage) {
+
+
+
+
+
+        const imageMessage =
+
+          document.createElement(
+
+            "div"
+
+          );
+
+
+
+
+
+        imageMessage.className =
+
+          "chatbot-message user-message image-message";
+
+
+
+
+
+        const chatImage =
+
+          document.createElement(
+
+            "img"
+
+          );
+
+
+
+
+
+        chatImage.src =
+
+          URL.createObjectURL(
+
+            selectedImage
+
+          );
+
+
+
+
+
+        chatImage.alt =
+
+          "Injury photo";
+
+
+
+
+
+        chatImage.className =
+
+          "chat-injury-image";
+
+
+
+
+
+        imageMessage.appendChild(
+
+          chatImage
+
+        );
+
+
+
+
+
+        chatbotMessages.appendChild(
+
+          imageMessage
+
+        );
+
+
+
+      }
+
+
+
+
+
+
+
+      // ============================================
+
+      // FORM DATA
+
+      // ============================================
+
+
+
+      const formData =
+
+        new FormData();
+
+
+
+
+
+      formData.append(
+
+        "message",
+
+        message
+
+      );
+
+
+
+
+
+      if (selectedImage) {
+
+
+
+        formData.append(
+
+          "injury_image",
+
+          selectedImage
+
+        );
+
+
+
+      }
+
+
+
+
+
+
+
+      // ============================================
+
+      // CLEAR INPUT
+
+      // ============================================
+
+
+
+      chatbotInput.value = "";
+
+
+
+      selectedImage = null;
+
+
+
+      injuryImageInput.value = "";
+
+
+
+      imagePreview.src = "";
+
+
+
+      imagePreviewContainer.style.display =
+
+        "none";
+
+
+
+      chatbotMessages.scrollTop =
+
+        chatbotMessages.scrollHeight;
+
+
+
+
+
+
+
+      // ============================================
+
+      // SEND TO FASTAPI
+
+      // ============================================
+
+
+
+      try {
+
+
+
+
+
+        const response =
+
+          await fetch(
+
+            "/chat",
+
+            {
+
+              method: "POST",
+
+              body: formData
+
+            }
+
+          );
+
+
+
+
+
+        const data =
+
+          await response.json();
+
+
+
+
+
+
+
+        // ========================================
+
+// SHOW BOT RESPONSE
+
+// ========================================
+
+
+
+if (data.response) {
+
+
+
+  // Create bot message
+
+  const botMessage =
+
+    document.createElement("div");
+
+
+
+  botMessage.className =
+
+    "chatbot-message bot-message";
+
+
+
+  // Response text
+
+  const botText =
+
+    document.createElement("div");
+
+
+
+  botText.textContent =
+
+    data.response;
+
+
+
+  botMessage.appendChild(
+
+    botText
+
+  );
+
+
+
+
+
+  // ======================================
+
+  // ELEVENLABS TTS BUTTON
+
+  // ======================================
+
+
+
+  const listenButton =
+
+    document.createElement("button");
+
+
+
+  listenButton.type =
+
+    "button";
+
+
+
+  listenButton.textContent =
+
+    "🔊 Listen";
+
+
+
+  listenButton.className =
+
+    "tts-listen-button";
+
+
+
+
+
+  listenButton.addEventListener(
+
+    "click",
+
+    async function () {
+
+
+
+      try {
+
+
+
+        listenButton.disabled = true;
+
+
+
+        listenButton.textContent =
+
+          "🔊 Loading...";
+
+
+
+
+
+        const ttsResponse =
+
+          await fetch(
+
+            "/text-to-speech",
+
+            {
+
+              method: "POST",
+
+
+
+              headers: {
+
+                "Content-Type":
+
+                  "application/json"
+
+              },
+
+
+
+              body: JSON.stringify({
+
+                text: data.response
+
+              })
+
+            }
+
+          );
+
+
+
+
+
+        if (!ttsResponse.ok) {
+
+
+
+          throw new Error(
+
+            "TTS request failed"
+
+          );
+
+
+
+        }
+
+
+
+
+
+        const audioBlob =
+
+          await ttsResponse.blob();
+
+
+
+
+
+        const audioURL =
+
+          URL.createObjectURL(
+
+            audioBlob
+
+          );
+
+
+
+
+
+        const audio =
+
+          new Audio(audioURL);
+
+
+
+
+
+        await audio.play();
+
+
+
+
+
+        audio.addEventListener(
+
+          "ended",
+
+          function () {
+
+
+
+            URL.revokeObjectURL(
+
+              audioURL
+
+            );
+
+
+
+          }
+
+        );
+
+
+
+      }
+
+
+
+      catch (error) {
+
+
+
+        console.error(
+
+          "TTS error:",
+
+          error
+
+        );
+
+
+
+      }
+
+
+
+      finally {
+
+
+
+        listenButton.disabled = false;
+
+
+
+        listenButton.textContent =
+
+          "🔊 Listen";
+
+
+
+      }
+
+
+
+    }
+
+  );
+
+
+
+
+
+  botMessage.appendChild(
+
+    listenButton
+
+  );
+
+
+
+
+
+  chatbotMessages.appendChild(
+
+    botMessage
+
+  );
+
+
+
+}
+
+
+
+
+
+
+
+        // ========================================
+
+        // SHOW PAYMENT CARD
+
+        // ========================================
+
+
+
+        if (
+
+          data.payment_required &&
+
+          data.pending_appointment
+
+        ) {
+
+
+
+
+
+          showPaymentCard(
+
+            data.pending_appointment
+
+          );
+
+
+
+        }
+
+
+
+
+
+
+
+        chatbotMessages.scrollTop =
+
+          chatbotMessages.scrollHeight;
+
+
+
+      }
+
+
+
+
+
+      catch (error) {
+
+
+
+
+
+        console.error(
+
+          "Chatbot error:",
+
+          error
+
+        );
+
+
+
+
+
+        const errorMessage =
+
+          document.createElement(
+
+            "div"
+
+          );
+
+
+
+
+
+        errorMessage.className =
+
+          "chatbot-message bot-message";
+
+
+
+
+
+        errorMessage.textContent =
+
+          "Sorry, something went wrong. Please try again.";
+
+
+
+
+
+        chatbotMessages.appendChild(
+
+          errorMessage
+
+        );
+
+
+
+
+
+        chatbotMessages.scrollTop =
+
+          chatbotMessages.scrollHeight;
+
+
+
+      }
+
+
+
+    }
+// ==========================================
+// ELEVENLABS SPEECH TO SPEECH - RECORDING
+// ==========================================
+
+const stsRecordButton =
+  document.getElementById("sts-record-button");
+
+let stsMediaRecorder = null;
+let stsAudioChunks = [];
+let stsStream = null;
+
+
+// ==========================================
+// MICROPHONE BUTTON CLICK
+// ==========================================
+
+stsRecordButton.addEventListener(
+  "click",
+  async () => {
+
+    try {
+
+      // ======================================
+      // START RECORDING
+      // ======================================
+
+      if (
+        !stsMediaRecorder ||
+        stsMediaRecorder.state === "inactive"
+      ) {
+
+        // Ask browser for microphone permission
+        stsStream =
+          await navigator.mediaDevices.getUserMedia({
+            audio: true
+          });
+
+
+        // Create recorder
+        stsMediaRecorder =
+          new MediaRecorder(stsStream);
+
+
+        // Clear previous recording
+        stsAudioChunks = [];
+
+
+        // Store recorded audio pieces
+        stsMediaRecorder.addEventListener(
+          "dataavailable",
+          (event) => {
+
+            if (event.data.size > 0) {
+              stsAudioChunks.push(event.data);
+            }
+
+          }
+        );
+
+
+        // ======================================
+        // WHEN RECORDING STOPS
+        // ======================================
+
+        stsMediaRecorder.addEventListener(
+          "stop",
+          async () => {
+
+            // Remove recording UI
+            stsRecordButton.classList.remove(
+              "recording"
+            );
+
+            stsRecordButton.innerText = "🎙️";
+
+            stsRecordButton.title =
+              "Record voice";
+
+
+            // Stop microphone
+            if (stsStream) {
+
+              stsStream
+                .getTracks()
+                .forEach(
+                  track => track.stop()
+                );
+
+            }
+
+
+            // Create audio file
+            const audioBlob =
+              new Blob(
+                stsAudioChunks,
+                {
+                  type:
+                    stsMediaRecorder.mimeType ||
+                    "audio/webm"
+                }
+              );
+
+
+            console.log(
+  "STS recording completed:",
+  audioBlob
+);
+
+
+// ======================================
+// SEND RECORDING TO ELEVENLABS STT
+// ======================================
+
+try {
+
+  stsRecordButton.disabled = true;
+  stsRecordButton.innerText = "⏳";
+  stsRecordButton.title = "Converting speech to text...";
+
+
+  // Create audio file from recording
+  const audioFile = new File(
+    [audioBlob],
+    "voice_recording.webm",
+    {
+      type:
+        audioBlob.type ||
+        "audio/webm"
+    }
+  );
+
+
+  // FastAPI expects field name "audio"
+  const formData = new FormData();
+
+  formData.append(
+    "audio",
+    audioFile
+  );
+
+
+  console.log(
+    "Sending recording to STT..."
+  );
+
+
+  // ======================================
+  // SEND TO SPEECH-TO-TEXT ENDPOINT
+  // ======================================
+
+  const response = await fetch(
+    "/speech-to-text",
+    {
+      method: "POST",
+      body: formData
+    }
+  );
+
+
+  if (!response.ok) {
+
+    throw new Error(
+      `STT request failed: ${response.status}`
+    );
+
+  }
+
+
+  const result = await response.json();
+
+
+  console.log(
+    "STT result:",
+    result
+  );
+
+
+  // ======================================
+  // PUT SPEECH TEXT INTO CHATBOT INPUT
+  // ======================================
+
+  if (
+    result.success &&
+    result.text
+  ) {
+
+    const chatbotInput =
+      document.getElementById(
+        "chatbot-input"
+      );
+
+
+    chatbotInput.value =
+      result.text;
+
+
+    chatbotInput.focus();
+
+
+    console.log(
+      "Speech inserted into chatbot:",
+      result.text
+    );
+
+  }
+
+  else {
+
+    throw new Error(
+      result.message ||
+      "No speech detected."
+    );
+
+  }
+
+}
+catch (error) {
+
+  console.error(
+    "STT error:",
+    error
+  );
+
+  alert(
+    "Could not convert your speech to text."
+  );
+
+}
+finally {
+
+  stsRecordButton.disabled = false;
+
+  stsRecordButton.innerText = "🎙️";
+
+  stsRecordButton.title =
+    "Record voice";
+
+}
+
+          }
+        );
+
+
+        // Start recording
+        stsMediaRecorder.start();
+
+
+        // Recording UI
+        stsRecordButton.classList.add(
+          "recording"
+        );
+
+        stsRecordButton.innerText = "⏹";
+
+        stsRecordButton.title =
+          "Stop recording";
+
+
+        console.log(
+          "STS recording started..."
+        );
+
+      }
+
+
+      // ======================================
+      // STOP RECORDING
+      // ======================================
+
+      else if (
+        stsMediaRecorder.state === "recording"
+      ) {
+
+        stsMediaRecorder.stop();
+
+      }
+
+    }
+
+    catch (error) {
+
+      console.error(
+        "Microphone error:",
+        error
+      );
+
+      alert(
+        "Microphone access could not be started."
+      );
+
+    }
+
+  }
+);
+
+
+  </script>
+
+
+
 
 
 </body>
+
+
+
 </html>
