@@ -388,6 +388,10 @@ from nlp_pretrained.sentiment_analyzer import (
 
 from starlette.middleware.sessions import SessionMiddleware
 
+from medical_mcp.api.mcp_routes import router as medical_mcp_router
+
+from chatbot.mcp_chat_integration import try_mcp_doctor_lookup
+
 # ==========================================
 
 # LOGGER
@@ -419,6 +423,12 @@ app = FastAPI(
 
 )
 
+# ==========================================
+# REGISTER MEDICAL MCP API ROUTES
+# ==========================================
+
+for route in medical_mcp_router.routes:
+    app.router.routes.append(route)
 # ==========================================
 
 # SESSION
@@ -460,6 +470,32 @@ templates = Jinja2Templates(
     directory="templates"
 
 )
+
+
+
+# ==========================================
+# MEDICAL MCP FRONTEND PAGE
+# ==========================================
+
+@app.get("/medical-mcp", response_class=HTMLResponse)
+async def medical_mcp_page(request: Request):
+
+    patient_id = request.session.get("patient_id")
+
+    if not patient_id:
+        return RedirectResponse(
+            url="/login",
+            status_code=303
+        )
+
+    return templates.TemplateResponse(
+        request,
+        "medical_mcp.html"
+    )
+
+
+
+
 
 # ==========================================
 
@@ -1084,6 +1120,15 @@ async def complete_payment(
             ]
 
         )
+
+        if appointment_id is None:
+            return {
+                "success": False,
+                "message": (
+                    "This appointment slot is already booked. "
+                    "Please choose another available slot."
+                )
+            }
 
     except Exception as e:
 
@@ -1904,35 +1949,41 @@ async def speech_to_text(
         }
 
 
+
 # ==========================================
-
 # CHATBOT + INJURY IMAGE UPLOAD
-
 # ==========================================
 
 @app.post("/chat")
-
 async def chat(
-
     request: Request,
-
     message: str = Form(""),
-
     injury_image: UploadFile | None = File(None)
-
 ):
 
-    patient_id = request.session.get(
+    patient_id = request.session.get("patient_id")
+    patient_name = request.session.get("patient_name")
 
-        "patient_id"
+    # ==========================================
+    # MCP DOCTOR SEARCH INTEGRATION
+    # ==========================================
 
-    )
+    if injury_image is None and message.strip():
 
-    patient_name = request.session.get(
+        mcp_response = await try_mcp_doctor_lookup(
+            message=message,
+            patient_id=patient_id
+        )
 
-        "patient_name"
+        if mcp_response is not None:
 
-    )
+            return {
+                "message": message,
+                "response": mcp_response,
+                "patient_id": patient_id,
+                "patient_name": patient_name
+            }
+
 
     # --------------------------------------
 

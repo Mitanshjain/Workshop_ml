@@ -390,7 +390,8 @@ def book_appointment(
 # =========================================================
 
 def get_patient_appointments(
-    patient_id: int
+    patient_id: int,
+    upcoming_only: bool = False
 ):
 
     connection = get_db_connection()
@@ -415,7 +416,22 @@ def get_patient_appointments(
             ON a.doctor_id = d.id
 
         WHERE a.patient_id = %s
+    """
 
+
+    if upcoming_only:
+        query += """
+            AND a.status = 'booked'
+            AND (
+                a.appointment_date > CURDATE()
+                OR (
+                    a.appointment_date = CURDATE()
+                    AND a.start_time > CURTIME()
+                )
+            )
+        """
+
+    query += """
         ORDER BY
             a.appointment_date DESC,
             a.start_time DESC
@@ -432,7 +448,6 @@ def get_patient_appointments(
     connection.close()
 
     return appointments
-
 
 # =========================================================
 # CANCEL APPOINTMENT
@@ -520,154 +535,164 @@ def reschedule_appointment(
     start_time,
     end_time
 ):
+    connection = None
+    cursor = None
 
-    connection = get_db_connection()
+    try:
+        connection = get_db_connection()
+        cursor = connection.cursor(dictionary=True)
 
-    cursor = connection.cursor(
-        dictionary=True
-    )
+        # -----------------------------------------
+        # 1. Check and lock existing appointment
+        # -----------------------------------------
 
-    # -----------------------------------------------------
-    # 1. Check existing appointment
-    # -----------------------------------------------------
-
-    check_query = """
-        SELECT id
-        FROM appointments
-
-        WHERE id = %s
-        AND patient_id = %s
-        AND status = 'booked'
-    """
-
-    cursor.execute(
-        check_query,
-        (
-            appointment_id,
-            patient_id
+        cursor.execute(
+            """
+            SELECT id
+            FROM appointments
+            WHERE id = %s
+              AND patient_id = %s
+              AND status = 'booked'
+            FOR UPDATE
+            """,
+            (appointment_id, patient_id)
         )
-    )
 
-    appointment = cursor.fetchone()
+        appointment = cursor.fetchone()
 
-    if not appointment:
+        if not appointment:
+            return False
 
-        cursor.close()
-        connection.close()
+        # -----------------------------------------
+        # 2. Check new slot availability
+        # -----------------------------------------
 
+        cursor.execute(
+            """
+            SELECT id
+            FROM doctor_availability
+            WHERE doctor_id = %s
+              AND available_date = %s
+              AND start_time = %s
+              AND end_time = %s
+              AND is_available = TRUE
+            """,
+            (
+                doctor_id,
+                appointment_date,
+                start_time,
+                end_time
+            )
+        )
+
+        available_slot = cursor.fetchone()
+
+        if not available_slot:
+            return False
+
+        # -----------------------------------------
+        # 3. Prevent duplicate active bookings
+        # -----------------------------------------
+
+        cursor.execute(
+            """
+            SELECT id
+            FROM appointments
+            WHERE doctor_id = %s
+              AND appointment_date = %s
+              AND start_time = %s
+              AND end_time = %s
+              AND status = 'booked'
+              AND id != %s
+            """,
+            (
+                doctor_id,
+                appointment_date,
+                start_time,
+                end_time,
+                appointment_id
+            )
+        )
+
+        existing_slot = cursor.fetchone()
+
+        if existing_slot:
+            return False
+
+        # -----------------------------------------
+        # 4. Update existing appointment
+        # -----------------------------------------
+
+        cursor.execute(
+            """
+            UPDATE appointments
+            SET
+                doctor_id = %s,
+                appointment_date = %s,
+                start_time = %s,
+                end_time = %s
+            WHERE id = %s
+              AND patient_id = %s
+              AND status = 'booked'
+            """,
+            (
+                doctor_id,
+                appointment_date,
+                start_time,
+                end_time,
+                appointment_id,
+                patient_id
+            )
+        )
+
+        # rowcount can be 0 if values are unchanged.
+        # Verify the appointment still matches the
+        # requested slot before committing.
+        if cursor.rowcount == 0:
+            cursor.execute(
+                """
+                SELECT id
+                FROM appointments
+                WHERE id = %s
+                  AND patient_id = %s
+                  AND status = 'booked'
+                  AND doctor_id = %s
+                  AND appointment_date = %s
+                  AND start_time = %s
+                  AND end_time = %s
+                """,
+                (
+                    appointment_id,
+                    patient_id,
+                    doctor_id,
+                    appointment_date,
+                    start_time,
+                    end_time
+                )
+            )
+
+            if not cursor.fetchone():
+                return False
+
+        connection.commit()
+        return True
+
+    except Exception as error:
+        if connection is not None:
+            connection.rollback()
+
+        print(f"Rescheduling failed: {error}")
         return False
 
-    # -----------------------------------------------------
-    # 2. Check new slot exists
-    # -----------------------------------------------------
+    finally:
+        if connection is not None:
+            if connection.is_connected():
+                connection.rollback()
 
-    availability_query = """
-        SELECT id
+                if cursor is not None:
+                    cursor.close()
 
-        FROM doctor_availability
-
-        WHERE doctor_id = %s
-        AND available_date = %s
-        AND start_time = %s
-        AND end_time = %s
-        AND is_available = TRUE
-    """
-
-    cursor.execute(
-        availability_query,
-        (
-            doctor_id,
-            appointment_date,
-            start_time,
-            end_time
-        )
-    )
-
-    available_slot = cursor.fetchone()
-
-    if not available_slot:
-
-        cursor.close()
-        connection.close()
-
-        return False
-
-    # -----------------------------------------------------
-    # 3. Check whether new slot is already booked
-    # -----------------------------------------------------
-
-    slot_query = """
-        SELECT id
-
-        FROM appointments
-
-        WHERE doctor_id = %s
-        AND appointment_date = %s
-        AND start_time = %s
-        AND end_time = %s
-
-        AND status = 'booked'
-
-        AND id != %s
-    """
-
-    cursor.execute(
-        slot_query,
-        (
-            doctor_id,
-            appointment_date,
-            start_time,
-            end_time,
-            appointment_id
-        )
-    )
-
-    existing_slot = cursor.fetchone()
-
-    if existing_slot:
-
-        cursor.close()
-        connection.close()
-
-        return False
-
-    # -----------------------------------------------------
-    # 4. Update appointment
-    # -----------------------------------------------------
-
-    update_query = """
-        UPDATE appointments
-
-        SET
-            doctor_id = %s,
-            appointment_date = %s,
-            start_time = %s,
-            end_time = %s
-
-        WHERE id = %s
-        AND patient_id = %s
-        AND status = 'booked'
-    """
-
-    cursor.execute(
-        update_query,
-        (
-            doctor_id,
-            appointment_date,
-            start_time,
-            end_time,
-            appointment_id,
-            patient_id
-        )
-    )
-
-    connection.commit()
-
-    cursor.close()
-    connection.close()
-
-    return True
-
+                connection.close()
 
 # =========================================================
 # TEST DATABASE

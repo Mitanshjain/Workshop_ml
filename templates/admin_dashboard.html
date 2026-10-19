@@ -1,0 +1,2492 @@
+
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sanjeevani | Admin Dashboard</title>
+
+
+
+    <style>
+
+        * {
+
+            box-sizing: border-box;
+
+        }
+
+
+
+        body {
+
+            margin: 0;
+
+            font-family: Arial, sans-serif;
+
+            background: #f4f7fb;
+
+            color: #1f2937;
+
+        }
+
+
+
+        header {
+
+            background: #0f766e;
+
+            color: white;
+
+            padding: 28px 40px;
+
+        }
+
+
+
+        header h1 {
+
+            margin: 0 0 8px;
+
+            font-size: 28px;
+
+        }
+
+
+
+        header p {
+
+            margin: 0;
+
+            opacity: 0.9;
+
+        }
+
+
+
+        main {
+
+            max-width: 1100px;
+
+            margin: 35px auto;
+
+            padding: 0 20px;
+
+        }
+
+
+
+        .card {
+
+            background: white;
+
+            padding: 28px;
+
+            border-radius: 12px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.06);
+
+            margin-bottom: 24px;
+
+        }
+
+
+
+        .card h2 {
+
+            margin-top: 0;
+
+            font-size: 22px;
+
+        }
+
+
+
+        .form-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(3, 1fr);
+
+            gap: 16px;
+
+            margin-bottom: 20px;
+
+        }
+
+
+
+        .form-group {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 8px;
+
+        }
+
+
+
+        .form-group label {
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+        }
+
+
+
+        .form-group input {
+
+            padding: 12px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            outline: none;
+
+        }
+
+
+
+        .form-group input:focus {
+
+            border-color: #0f766e;
+
+        }
+
+
+
+        button {
+
+            background: #0f766e;
+
+            color: white;
+
+            border: none;
+
+            padding: 12px 20px;
+
+            border-radius: 8px;
+
+            font-size: 14px;
+
+            font-weight: bold;
+
+            cursor: pointer;
+
+        }
+
+
+
+        button:hover {
+
+            background: #115e59;
+
+        }
+
+
+
+        button:disabled {
+
+            opacity: 0.6;
+
+            cursor: not-allowed;
+
+        }
+
+
+
+        .secondary-btn {
+
+            background: #e5e7eb;
+
+            color: #1f2937;
+
+        }
+
+
+
+        .secondary-btn:hover {
+
+            background: #d1d5db;
+
+        }
+
+
+
+        .danger-btn {
+
+            background: #dc2626;
+
+        }
+
+
+
+        .danger-btn:hover {
+
+            background: #b91c1c;
+
+        }
+
+
+
+        .button-group {
+
+            display: flex;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .table-container {
+
+            overflow-x: auto;
+
+        }
+
+
+
+        table {
+
+            width: 100%;
+
+            border-collapse: collapse;
+
+            margin-top: 20px;
+
+        }
+
+
+
+        th,
+
+        td {
+
+            text-align: left;
+
+            padding: 14px;
+
+            border-bottom: 1px solid #e5e7eb;
+
+        }
+
+
+
+        th {
+
+            background: #f9fafb;
+
+            font-size: 14px;
+
+        }
+
+
+
+        td {
+
+            font-size: 14px;
+
+        }
+
+
+
+        .message {
+
+            margin-top: 16px;
+
+            font-size: 14px;
+
+        }
+
+
+
+        .success {
+
+            color: #15803d;
+
+        }
+
+
+
+        .error {
+
+            color: #dc2626;
+
+        }
+
+
+
+        .info {
+
+            color: #475569;
+
+        }
+
+
+
+        .status-select {
+
+            padding: 10px;
+
+            border: 1px solid #d1d5db;
+
+            border-radius: 8px;
+
+            margin-right: 8px;
+
+            background: white;
+
+        }
+
+
+
+        .action-cell {
+
+            min-width: 230px;
+
+        }
+
+
+
+        .action-cell button {
+
+            padding: 10px 12px;
+
+        }
+
+
+
+        [hidden] {
+
+            display: none !important;
+
+        }
+
+
+
+
+
+/* ==========================================
+
+   CLINIC ANALYTICS CARDS
+
+========================================== */
+
+
+
+.analytics-grid {
+
+    display: grid;
+
+    grid-template-columns: repeat(3, 1fr);
+
+    gap: 16px;
+
+    margin-top: 20px;
+
+}
+
+
+
+.analytics-card {
+
+    background: #f0fdfa;
+
+    border: 1px solid #ccfbf1;
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+}
+
+
+
+.analytics-card h3 {
+
+    margin: 0 0 12px;
+
+    color: #475569;
+
+    font-size: 15px;
+
+}
+
+
+
+.analytics-card p {
+
+    margin: 0;
+
+    color: #0f766e;
+
+    font-size: 32px;
+
+    font-weight: bold;
+
+}
+
+
+
+@media (max-width: 768px) {
+
+    .analytics-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+}
+
+
+
+
+
+        @media (max-width: 768px) {
+
+            header {
+
+                padding: 24px 20px;
+
+            }
+
+
+
+            header h1 {
+
+                font-size: 23px;
+
+            }
+
+
+
+            main {
+
+                margin-top: 24px;
+
+            }
+
+
+
+            .card {
+
+                padding: 20px;
+
+            }
+
+
+
+            .form-grid {
+
+                grid-template-columns: 1fr;
+
+            }
+
+        }
+
+    
+        /* SECURITY & AUDIT LOGS */
+        .audit-summary { color: #475569; font-size: 14px; margin-top: 10px; }
+        .audit-action { display: inline-block; font-weight: 700; color: #115e59; background: #f0fdfa; padding: 6px 9px; border-radius: 6px; white-space: nowrap; }
+        .audit-time { white-space: nowrap; color: #475569; }
+        .audit-table td { vertical-align: top; }
+        .audit-table td:nth-child(4) { min-width: 230px; overflow-wrap: anywhere; }
+
+        /* ADMIN HEADER LOGOUT */
+        .admin-header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .admin-logout-btn {
+            background: #ffffff;
+            color: #0f766e;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+            white-space: nowrap;
+        }
+        .admin-logout-btn:hover { background: #f0fdfa; }
+        .admin-logout-btn:disabled { opacity: 0.65; cursor: wait; }
+    </style>
+
+</head>
+
+
+
+<body>
+
+
+
+    <!-- HEADER -->
+
+    <header>
+
+        <div class="admin-header-row">
+            <div>
+                <h1>Sanjeevani Admin Dashboard</h1>
+                <p>Doctor &amp; Appointment Management System</p>
+            </div>
+            <button type="button" id="adminLogoutBtn" class="admin-logout-btn">Logout</button>
+        </div>
+
+    </header>
+
+
+
+    <main>
+
+
+
+
+
+<!-- ==========================================
+
+     CLINIC ANALYTICS
+
+========================================== -->
+
+
+
+<section class="card">
+
+
+
+    <h2>Clinic Analytics Overview</h2>
+
+
+
+    <button
+
+        type="button"
+
+        class="secondary-btn"
+
+        id="refreshAnalyticsBtn"
+
+    >
+
+        Refresh Analytics
+
+    </button>
+
+
+
+    <p
+
+        id="analyticsMessage"
+
+        class="message"
+
+        role="status"
+
+        aria-live="polite"
+
+    ></p>
+
+
+
+    <div class="analytics-grid">
+
+
+
+        <div class="analytics-card">
+
+            <h3>Total Doctors</h3>
+
+            <p id="totalDoctors">--</p>
+
+        </div>
+
+
+
+        <div class="analytics-card">
+
+            <h3>Total Patients</h3>
+
+            <p id="totalPatients">--</p>
+
+        </div>
+
+
+
+        <div class="analytics-card">
+
+            <h3>Total Appointments</h3>
+
+            <p id="totalAppointments">--</p>
+
+        </div>
+
+
+
+        <div class="analytics-card">
+
+            <h3>Booked Appointments</h3>
+
+            <p id="bookedAppointments">--</p>
+
+        </div>
+
+
+
+        <div class="analytics-card">
+
+            <h3>Completed Appointments</h3>
+
+            <p id="completedAppointments">--</p>
+
+        </div>
+
+
+
+        <div class="analytics-card">
+
+            <h3>Cancelled Appointments</h3>
+
+            <p id="cancelledAppointments">--</p>
+
+        </div>
+
+
+
+    </div>
+
+
+
+</section>
+
+
+
+
+
+        <!-- ADD DOCTOR -->
+
+        <section class="card">
+
+            <h2>Add New Doctor</h2>
+
+
+
+            <form id="addDoctorForm">
+
+                <div class="form-grid">
+
+
+
+                    <div class="form-group">
+
+                        <label for="doctorName">Doctor Name</label>
+
+                        <input
+
+                            type="text"
+
+                            id="doctorName"
+
+                            placeholder="e.g. Dr. Sharma"
+
+                            maxlength="100"
+
+                            required
+
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="doctorSpecialization">
+
+                            Specialization
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="doctorSpecialization"
+
+                            placeholder="e.g. Cardiologist"
+
+                            maxlength="100"
+
+                            required
+
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="doctorTiming">
+
+                            Available Timing
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="doctorTiming"
+
+                            placeholder="e.g. 10 AM - 2 PM"
+
+                            maxlength="100"
+
+                            required
+
+                        >
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <button type="submit" id="addDoctorBtn">
+
+                    Add Doctor
+
+                </button>
+
+            </form>
+
+
+
+            <p
+
+                id="addDoctorMessage"
+
+                class="message"
+
+                role="status"
+
+                aria-live="polite"
+
+            ></p>
+
+        </section>
+
+
+
+        <!-- EDIT DOCTOR -->
+
+        <section
+
+            class="card"
+
+            id="editDoctorSection"
+
+            hidden
+
+        >
+
+            <h2>Edit Doctor Details</h2>
+
+
+
+            <form id="editDoctorForm">
+
+                <input type="hidden" id="editDoctorId">
+
+
+
+                <div class="form-grid">
+
+
+
+                    <div class="form-group">
+
+                        <label for="editDoctorName">
+
+                            Doctor Name
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="editDoctorName"
+
+                            maxlength="100"
+
+                            required
+
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="editDoctorSpecialization">
+
+                            Specialization
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="editDoctorSpecialization"
+
+                            maxlength="100"
+
+                            required
+
+                        >
+
+                    </div>
+
+
+
+                    <div class="form-group">
+
+                        <label for="editDoctorTiming">
+
+                            Available Timing
+
+                        </label>
+
+                        <input
+
+                            type="text"
+
+                            id="editDoctorTiming"
+
+                            maxlength="100"
+
+                            required
+
+                        >
+
+                    </div>
+
+
+
+                </div>
+
+
+
+                <div class="button-group">
+
+                    <button type="submit" id="saveEditBtn">
+
+                        Save Changes
+
+                    </button>
+
+
+
+                    <button
+
+                        type="button"
+
+                        class="secondary-btn"
+
+                        id="cancelEditBtn"
+
+                    >
+
+                        Cancel
+
+                    </button>
+
+                </div>
+
+            </form>
+
+
+
+            <p
+
+                id="editDoctorMessage"
+
+                class="message"
+
+                role="status"
+
+                aria-live="polite"
+
+            ></p>
+
+        </section>
+
+
+
+        <!-- REGISTERED DOCTORS -->
+
+        <section class="card">
+
+            <h2>Registered Doctors</h2>
+
+
+
+            <button
+
+                type="button"
+
+                class="secondary-btn"
+
+                id="refreshDoctorsBtn"
+
+            >
+
+                Refresh Doctors
+
+            </button>
+
+
+
+            <p
+
+                id="message"
+
+                class="message"
+
+                role="status"
+
+                aria-live="polite"
+
+            ></p>
+
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>ID</th>
+
+                            <th>Doctor Name</th>
+
+                            <th>Specialization</th>
+
+                            <th>Available Timing</th>
+
+                            <th>Actions</th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody id="doctorTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- REGISTERED APPOINTMENTS -->
+
+        <section class="card">
+
+            <h2>Registered Appointments</h2>
+
+
+
+            <button
+
+                type="button"
+
+                class="secondary-btn"
+
+                id="refreshAppointmentsBtn"
+
+            >
+
+                Refresh Appointments
+
+            </button>
+
+
+
+            <p
+
+                id="appointmentMessage"
+
+                class="message"
+
+                role="status"
+
+                aria-live="polite"
+
+            ></p>
+
+
+
+            <div class="table-container">
+
+                <table>
+
+                    <thead>
+
+                        <tr>
+
+                            <th>Appointment ID</th>
+
+                            <th>Patient ID</th>
+
+                            <th>Doctor</th>
+
+                            <th>Date</th>
+
+                            <th>Time</th>
+
+                            <th>Status</th>
+
+                            <th>Action</th>
+
+                        </tr>
+
+                    </thead>
+
+
+
+                    <tbody id="appointmentTable"></tbody>
+
+                </table>
+
+            </div>
+
+        </section>
+
+
+
+    
+        <!-- SECURITY & AUDIT HISTORY -->
+        <section class="card" id="auditLogsSection">
+            <h2>Security &amp; Audit Logs</h2>
+            <p class="audit-summary">Recent administrative actions, including login, doctor management and appointment status changes.</p>
+            <button type="button" class="secondary-btn" id="refreshAuditLogsBtn">Refresh Audit Logs</button>
+            <p id="auditLogsMessage" class="message" role="status" aria-live="polite"></p>
+            <div class="table-container">
+                <table class="audit-table">
+                    <thead>
+                        <tr>
+                            <th>Log ID</th>
+                            <th>Admin / Role</th>
+                            <th>Action</th>
+                            <th>Details</th>
+                            <th>Timestamp (Local)</th>
+                        </tr>
+                    </thead>
+                    <tbody id="auditLogsTable"></tbody>
+                </table>
+            </div>
+        </section>
+
+    </main>
+
+
+
+    <script>
+
+        // ==========================================
+
+        // DISPLAY STATUS MESSAGE
+
+        // ==========================================
+
+
+
+        function showMessage(element, text, type = "info") {
+
+            element.textContent = text;
+
+            element.className = `message ${type}`;
+
+        }
+
+
+
+        // ==========================================
+
+        // HANDLE API RESPONSES
+
+        // ==========================================
+
+
+
+        async function readApiResponse(response) {
+
+            const raw = await response.text();
+            let data;
+            try {
+                data = JSON.parse(raw);
+            } catch {
+                throw new Error(`Server returned HTTP ${response.status}. Check FastAPI and MCP server terminals.`);
+            }
+
+
+
+            if (!response.ok || !data.success) {
+
+                const detail = data.message || data.detail;
+
+
+
+                throw new Error(
+
+                    typeof detail === "string"
+
+                        ? detail
+
+                        : "Request failed."
+
+                );
+
+            }
+
+
+
+            return data;
+
+        }
+
+
+
+        // ==========================================
+
+        // LOAD DOCTORS
+
+        // ==========================================
+
+
+
+        async function loadDoctors() {
+
+            const message = document.getElementById("message");
+
+            const table = document.getElementById("doctorTable");
+
+
+
+            showMessage(message, "Loading doctors...", "info");
+
+            table.replaceChildren();
+
+
+
+            try {
+
+                const response = await fetch(
+
+                    "/api/mcp/admin/doctors",
+
+                    {
+
+                        method: "GET",
+
+                        credentials: "same-origin"
+
+                    }
+
+                );
+
+
+
+                const data = await readApiResponse(response);
+
+
+
+                data.doctors.forEach(doctor => {
+
+                    const row = document.createElement("tr");
+
+
+
+                    const values = [
+
+                        doctor.id,
+
+                        doctor.name,
+
+                        doctor.specialization,
+
+                        doctor.timing
+
+                    ];
+
+
+
+                    values.forEach(value => {
+
+                        const cell = document.createElement("td");
+
+                        cell.textContent = value ?? "";
+
+                        row.appendChild(cell);
+
+                    });
+
+
+
+                    // DOCTOR ACTIONS
+
+                    const actionCell = document.createElement("td");
+
+
+
+                    const editButton = document.createElement("button");
+
+                    editButton.type = "button";
+
+                    editButton.textContent = "Edit";
+
+                    editButton.className = "secondary-btn";
+
+
+
+                    editButton.addEventListener("click", () => {
+
+                        openEditDoctor(doctor);
+
+                    });
+
+
+
+                    const deleteButton = document.createElement("button");
+
+                    deleteButton.type = "button";
+
+                    deleteButton.textContent = "Delete";
+
+                    deleteButton.className = "danger-btn";
+
+                    deleteButton.style.marginLeft = "8px";
+
+
+
+                    deleteButton.addEventListener("click", () => {
+
+                        deleteDoctor(doctor.id, doctor.name);
+
+                    });
+
+
+
+                    actionCell.appendChild(editButton);
+
+                    actionCell.appendChild(deleteButton);
+
+
+
+                    row.appendChild(actionCell);
+
+                    table.appendChild(row);
+
+                });
+
+
+
+                showMessage(
+
+                    message,
+
+                    `Total Doctors: ${data.total_doctors}`,
+
+                    "success"
+
+                );
+
+
+
+            } catch (error) {
+
+                showMessage(
+
+                    message,
+
+                    error.message || "Unable to load doctors.",
+
+                    "error"
+
+                );
+
+            }
+
+        }
+
+
+
+        // ==========================================
+
+        // ADD DOCTOR
+
+        // ==========================================
+
+
+
+        document.getElementById("addDoctorForm")
+
+            .addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+
+
+                const message = document.getElementById(
+
+                    "addDoctorMessage"
+
+                );
+
+
+
+                const button = document.getElementById(
+
+                    "addDoctorBtn"
+
+                );
+
+
+
+                const name = document.getElementById(
+
+                    "doctorName"
+
+                ).value.trim();
+
+
+
+                const specialization = document.getElementById(
+
+                    "doctorSpecialization"
+
+                ).value.trim();
+
+
+
+                const timing = document.getElementById(
+
+                    "doctorTiming"
+
+                ).value.trim();
+
+
+
+                if (!name || !specialization || !timing) {
+
+                    showMessage(
+
+                        message,
+
+                        "Please fill all doctor details.",
+
+                        "error"
+
+                    );
+
+                    return;
+
+                }
+
+
+
+                button.disabled = true;
+
+                showMessage(message, "Adding doctor...", "info");
+
+
+
+                try {
+
+                    const response = await fetch(
+
+                        "/api/mcp/admin/doctors",
+
+                        {
+
+                            method: "POST",
+
+                            credentials: "same-origin",
+
+                            headers: {
+
+                                "Content-Type": "application/json"
+
+                            },
+
+                            body: JSON.stringify({
+
+                                name,
+
+                                specialization,
+
+                                timing
+
+                            })
+
+                        }
+
+                    );
+
+
+
+                    const data = await readApiResponse(response);
+
+
+
+                    showMessage(
+
+                        message,
+
+                        `Doctor added successfully! ID: ${data.doctor_id}`,
+
+                        "success"
+
+                    );
+
+
+
+                    document.getElementById(
+
+                        "addDoctorForm"
+
+                    ).reset();
+
+
+
+                    await loadDoctors();
+
+
+
+                } catch (error) {
+
+                    showMessage(message, error.message, "error");
+
+
+
+                } finally {
+
+                    button.disabled = false;
+
+                }
+
+            });
+
+
+
+        // ==========================================
+
+        // OPEN EDIT DOCTOR FORM
+
+        // ==========================================
+
+
+
+        function openEditDoctor(doctor) {
+
+            document.getElementById(
+
+                "editDoctorId"
+
+            ).value = doctor.id;
+
+
+
+            document.getElementById(
+
+                "editDoctorName"
+
+            ).value = doctor.name;
+
+
+
+            document.getElementById(
+
+                "editDoctorSpecialization"
+
+            ).value = doctor.specialization;
+
+
+
+            document.getElementById(
+
+                "editDoctorTiming"
+
+            ).value = doctor.timing;
+
+
+
+            const section = document.getElementById(
+
+                "editDoctorSection"
+
+            );
+
+
+
+            section.hidden = false;
+
+
+
+            showMessage(
+
+                document.getElementById("editDoctorMessage"),
+
+                "",
+
+                "info"
+
+            );
+
+
+
+            section.scrollIntoView({
+
+                behavior: "smooth",
+
+                block: "start"
+
+            });
+
+        }
+
+
+
+        // ==========================================
+
+        // CLOSE EDIT DOCTOR FORM
+
+        // ==========================================
+
+
+
+        function closeEditDoctor() {
+
+            document.getElementById(
+
+                "editDoctorSection"
+
+            ).hidden = true;
+
+
+
+            document.getElementById(
+
+                "editDoctorForm"
+
+            ).reset();
+
+        }
+
+
+
+        // ==========================================
+
+        // UPDATE DOCTOR
+
+        // ==========================================
+
+
+
+        document.getElementById("editDoctorForm")
+
+            .addEventListener("submit", async function (event) {
+
+                event.preventDefault();
+
+
+
+                const doctorId = document.getElementById(
+
+                    "editDoctorId"
+
+                ).value;
+
+
+
+                const name = document.getElementById(
+
+                    "editDoctorName"
+
+                ).value.trim();
+
+
+
+                const specialization = document.getElementById(
+
+                    "editDoctorSpecialization"
+
+                ).value.trim();
+
+
+
+                const timing = document.getElementById(
+
+                    "editDoctorTiming"
+
+                ).value.trim();
+
+
+
+                const message = document.getElementById(
+
+                    "editDoctorMessage"
+
+                );
+
+
+
+                const button = document.getElementById(
+
+                    "saveEditBtn"
+
+                );
+
+
+
+                if (!name || !specialization || !timing) {
+
+                    showMessage(
+
+                        message,
+
+                        "Please fill all doctor details.",
+
+                        "error"
+
+                    );
+
+                    return;
+
+                }
+
+
+
+                button.disabled = true;
+
+
+
+                showMessage(
+
+                    message,
+
+                    "Updating doctor details...",
+
+                    "info"
+
+                );
+
+
+
+                try {
+
+                    const response = await fetch(
+
+                        `/api/mcp/admin/doctors/${encodeURIComponent(doctorId)}`,
+
+                        {
+
+                            method: "PUT",
+
+                            credentials: "same-origin",
+
+                            headers: {
+
+                                "Content-Type": "application/json"
+
+                            },
+
+                            body: JSON.stringify({
+
+                                name,
+
+                                specialization,
+
+                                timing
+
+                            })
+
+                        }
+
+                    );
+
+
+
+                    await readApiResponse(response);
+
+
+
+                    showMessage(
+
+                        message,
+
+                        "Doctor details updated successfully!",
+
+                        "success"
+
+                    );
+
+
+
+                    await loadDoctors();
+
+
+
+                } catch (error) {
+
+                    showMessage(message, error.message, "error");
+
+
+
+                } finally {
+
+                    button.disabled = false;
+
+                }
+
+            });
+
+
+
+        document.getElementById("cancelEditBtn")
+
+            .addEventListener("click", closeEditDoctor);
+
+
+
+        // ==========================================
+
+        // DELETE DOCTOR
+
+        // ==========================================
+
+
+
+        async function deleteDoctor(doctorId, doctorName) {
+
+            const confirmed = confirm(
+
+                `Are you sure you want to delete ${doctorName}?`
+
+            );
+
+
+
+            if (!confirmed) {
+
+                return;
+
+            }
+
+
+
+            const message = document.getElementById("message");
+
+
+
+            showMessage(message, "Deleting doctor...", "info");
+
+
+
+            try {
+
+                const response = await fetch(
+
+                    `/api/mcp/admin/doctors/${encodeURIComponent(doctorId)}`,
+
+                    {
+
+                        method: "DELETE",
+
+                        credentials: "same-origin"
+
+                    }
+
+                );
+
+
+
+                await readApiResponse(response);
+
+
+
+                if (
+
+                    document.getElementById("editDoctorId").value
+
+                    === String(doctorId)
+
+                ) {
+
+                    closeEditDoctor();
+
+                }
+
+
+
+                await loadDoctors();
+
+
+
+                showMessage(
+
+                    message,
+
+                    `${doctorName} deleted successfully!`,
+
+                    "success"
+
+                );
+
+
+
+            } catch (error) {
+
+                showMessage(message, error.message, "error");
+
+            }
+
+        }
+
+
+
+        // ==========================================
+
+        // LOAD APPOINTMENTS
+
+        // ==========================================
+
+
+
+        async function loadAppointments() {
+
+            const message = document.getElementById(
+
+                "appointmentMessage"
+
+            );
+
+
+
+            const table = document.getElementById(
+
+                "appointmentTable"
+
+            );
+
+
+
+            showMessage(
+
+                message,
+
+                "Loading appointments...",
+
+                "info"
+
+            );
+
+
+
+            table.replaceChildren();
+
+
+
+            try {
+
+                const response = await fetch(
+
+                    "/api/mcp/admin/appointments",
+
+                    {
+
+                        method: "GET",
+
+                        credentials: "same-origin"
+
+                    }
+
+                );
+
+
+
+                const data = await readApiResponse(response);
+
+
+
+                data.appointments.forEach(appointment => {
+
+                    const row = document.createElement("tr");
+
+
+
+                    const values = [
+
+                        appointment.appointment_id,
+
+                        appointment.patient_id,
+
+                        appointment.doctor_name,
+
+                        appointment.appointment_date,
+
+                        appointment.appointment_time,
+
+                        appointment.status
+
+                    ];
+
+
+
+                    values.forEach(value => {
+
+                        const cell = document.createElement("td");
+
+                        cell.textContent = value ?? "";
+
+                        row.appendChild(cell);
+
+                    });
+
+
+
+                    // ==================================
+
+                    // APPOINTMENT STATUS CONTROLS
+
+                    // ==================================
+
+
+
+                    const actionCell = document.createElement("td");
+
+                    actionCell.className = "action-cell";
+
+
+
+                    const statusSelect = document.createElement("select");
+
+                    statusSelect.className = "status-select";
+
+
+
+                    const statuses = [
+
+                        "booked",
+
+                        "completed",
+
+                        "cancelled"
+
+                    ];
+
+
+
+                    statuses.forEach(status => {
+
+                        const option = document.createElement("option");
+
+                        option.value = status;
+
+                        option.textContent = status;
+
+                        statusSelect.appendChild(option);
+
+                    });
+
+
+
+                    statusSelect.value = appointment.status;
+
+
+
+                    const updateButton = document.createElement("button");
+
+                    updateButton.type = "button";
+
+                    updateButton.textContent = "Update Status";
+
+
+
+                    const isFinalized = [
+
+                        "completed",
+
+                        "cancelled"
+
+                    ].includes(appointment.status);
+
+
+
+                    statusSelect.disabled = isFinalized;
+
+                    updateButton.disabled = isFinalized;
+
+
+
+                    updateButton.addEventListener(
+
+                        "click",
+
+                        async () => {
+
+                            const newStatus = statusSelect.value;
+
+
+
+                            if (newStatus === appointment.status) {
+
+                                alert("Please select a different status.");
+
+                                return;
+
+                            }
+
+
+
+                            const confirmed = confirm(
+
+                                `Change appointment #${appointment.appointment_id} to ${newStatus}?`
+
+                            );
+
+
+
+                            if (!confirmed) {
+
+                                return;
+
+                            }
+
+
+
+                            updateButton.disabled = true;
+
+
+
+                            try {
+
+                                const response = await fetch(
+
+                                    `/api/mcp/admin/appointments/${appointment.appointment_id}/status`,
+
+                                    {
+
+                                        method: "PUT",
+
+                                        credentials: "same-origin",
+
+                                        headers: {
+
+                                            "Content-Type": "application/json"
+
+                                        },
+
+                                        body: JSON.stringify({
+
+                                            status: newStatus
+
+                                        })
+
+                                    }
+
+                                );
+
+
+
+                                const result = await readApiResponse(
+
+                                    response
+
+                                );
+
+
+
+                                alert(result.message);
+
+
+
+                                await loadAppointments();
+
+
+
+                            } catch (error) {
+
+                                alert(
+
+                                    error.message ||
+
+                                    "Unable to update appointment."
+
+                                );
+
+
+
+                                updateButton.disabled = false;
+
+                            }
+
+                        }
+
+                    );
+
+
+
+                    actionCell.appendChild(statusSelect);
+
+                    actionCell.appendChild(updateButton);
+
+
+
+                    row.appendChild(actionCell);
+
+                    table.appendChild(row);
+
+                });
+
+
+
+                showMessage(
+
+                    message,
+
+                    `Total Appointments: ${data.total_appointments}`,
+
+                    "success"
+
+                );
+
+
+
+            } catch (error) {
+
+                showMessage(
+
+                    message,
+
+                    error.message || "Unable to load appointments.",
+
+                    "error"
+
+                );
+
+            }
+
+        }
+
+
+
+
+
+        // ==========================================
+
+        // LOAD CLINIC ANALYTICS
+
+        // ==========================================
+
+
+
+        async function loadAnalytics() {
+
+
+
+            const message = document.getElementById(
+
+                "analyticsMessage"
+
+            );
+
+
+
+            showMessage(
+
+                message,
+
+                "Loading clinic analytics...",
+
+                "info"
+
+            );
+
+
+
+            try {
+
+
+
+                const response = await fetch(
+
+                    "/api/mcp/admin/analytics",
+
+                    {
+
+                        method: "GET",
+
+                        credentials: "same-origin"
+
+                    }
+
+                );
+
+
+
+                const data = await readApiResponse(response);
+
+
+
+                const analytics = data.analytics;
+
+
+
+                document.getElementById("totalDoctors").textContent =
+
+                    analytics.total_doctors;
+
+
+
+                document.getElementById("totalPatients").textContent =
+
+                    analytics.total_patients;
+
+
+
+                document.getElementById("totalAppointments").textContent =
+
+                    analytics.total_appointments;
+
+
+
+                document.getElementById("bookedAppointments").textContent =
+
+                    analytics.booked_appointments;
+
+
+
+                document.getElementById("completedAppointments").textContent =
+
+                    analytics.completed_appointments;
+
+
+
+                document.getElementById("cancelledAppointments").textContent =
+
+                    analytics.cancelled_appointments;
+
+
+
+                showMessage(
+
+                    message,
+
+                    "Analytics loaded successfully!",
+
+                    "success"
+
+                );
+
+
+
+            } catch (error) {
+
+
+
+                showMessage(
+
+                    message,
+
+                    error.message || "Unable to load analytics.",
+
+                    "error"
+
+                );
+
+
+
+            }
+
+        }
+
+
+
+        // Refresh Analytics button
+
+        document.getElementById("refreshAnalyticsBtn")
+
+            .addEventListener("click", loadAnalytics);
+
+
+
+
+
+        // ==========================================
+
+        // REFRESH BUTTONS
+
+        // ==========================================
+
+
+
+        document.getElementById("refreshDoctorsBtn")
+
+            .addEventListener("click", loadDoctors);
+
+
+
+        document.getElementById("refreshAppointmentsBtn")
+
+            .addEventListener("click", loadAppointments);
+
+
+
+        // ==========================================
+
+        // INITIAL PAGE LOAD
+
+        // ==========================================
+
+
+
+
+        // ==========================================
+        // SECURITY & AUDIT LOGS
+        // ==========================================
+        async function loadAuditLogs() {
+            const message = document.getElementById("auditLogsMessage");
+            const table = document.getElementById("auditLogsTable");
+            const button = document.getElementById("refreshAuditLogsBtn");
+            button.disabled = true;
+            showMessage(message, "Loading audit logs...", "info");
+            table.replaceChildren();
+
+            try {
+                const response = await fetch("/api/mcp/admin/audit-logs", {
+                    method: "GET",
+                    credentials: "same-origin"
+                });
+                const data = await readApiResponse(response);
+                if (!Array.isArray(data.logs)) {
+                    throw new Error("Invalid audit logs response.");
+                }
+                if (data.logs.length === 0) {
+                    const row = document.createElement("tr");
+                    const cell = document.createElement("td");
+                    cell.colSpan = 5;
+                    cell.textContent = "No audit events recorded yet.";
+                    row.appendChild(cell);
+                    table.appendChild(row);
+                } else {
+                    data.logs.forEach(log => {
+                        const row = document.createElement("tr");
+                        const actor = `${log.actor_id ?? "-"} (${log.actor_role ?? "-"})`;
+                        const values = [
+                            log.id,
+                            actor,
+                            log.action,
+                            log.details ?? "-",
+                            formatAuditTimestamp(log.created_at)
+                        ];
+                        values.forEach((value, index) => {
+                            const cell = document.createElement("td");
+                            cell.textContent = value ?? "-";
+                            if (index === 2) cell.className = "audit-action";
+                            if (index === 4) cell.className = "audit-time";
+                            row.appendChild(cell);
+                        });
+                        table.appendChild(row);
+                    });
+                }
+                showMessage(message, `Showing ${data.logs.length} recent audit event(s).`, "success");
+            } catch (error) {
+                showMessage(message, error.message || "Unable to load audit logs.", "error");
+            } finally {
+                button.disabled = false;
+            }
+        }
+
+        function formatAuditTimestamp(value) {
+            if (!value) return "-";
+            const parsed = new Date(value);
+            return Number.isNaN(parsed.getTime()) ? String(value) : parsed.toLocaleString();
+        }
+
+        document.getElementById("refreshAuditLogsBtn")
+            .addEventListener("click", loadAuditLogs);
+
+        loadAuditLogs();
+        loadAnalytics();
+
+        loadDoctors();
+
+        loadAppointments();
+
+
+
+
+        // ==========================================
+        // ADMIN LOGOUT
+        // ==========================================
+        document.getElementById("adminLogoutBtn").addEventListener("click", async () => {
+            const button = document.getElementById("adminLogoutBtn");
+            button.disabled = true;
+            button.textContent = "Logging out...";
+
+            try {
+                const response = await fetch("/api/mcp/admin/logout", {
+                    method: "POST",
+                    credentials: "same-origin"
+                });
+                if (!response.ok) {
+                    let message = "Logout failed. Please try again.";
+                    try {
+                        const data = await response.json();
+                        message = data.detail || data.message || message;
+                    } catch (_) {}
+                    throw new Error(message);
+                }
+                window.location.replace("/api/mcp/admin/login");
+            } catch (error) {
+                alert(error.message || "Unable to log out.");
+                button.disabled = false;
+                button.textContent = "Logout";
+            }
+        });
+    </script>
+
+
+
+</body>
+
+</html>

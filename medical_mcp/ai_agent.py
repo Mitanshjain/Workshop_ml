@@ -5,6 +5,8 @@ from dotenv import load_dotenv
 from groq import Groq
 from fastmcp import Client
 
+from medical_mcp.auth.jwt_handler import create_access_token
+
 
 # Load .env
 load_dotenv()
@@ -18,7 +20,7 @@ GROQ_MODEL = os.getenv(
 
 MCP_SERVER_URL = os.getenv(
     "MCP_SERVER_URL",
-    "http://127.0.0.1:8001/mcp"
+    "http://127.0.0.1:8011/mcp"
 )
 
 
@@ -32,13 +34,30 @@ groq = Groq(
 # AI Agent
 # ------------------------------------------------
 
-async def ask_agent(question: str):
+async def ask_agent(question: str, patient_id: int):
 
-    # Connect to MCP server
-    async with Client(MCP_SERVER_URL) as client:
+    if not isinstance(patient_id, int) or patient_id <= 0:
+        raise ValueError("Authenticated patient ID required")
+
+    token = create_access_token(
+        user_id=patient_id,
+        role="user"
+    )
+
+    async with Client(MCP_SERVER_URL, auth=token) as client:
 
         # Get available MCP tools
         tools = await client.list_tools()
+        
+
+        ALLOWED_TOOLS = {
+            "doctor_search_doctor_details"
+        }
+
+        tools = [
+            tool for tool in tools
+            if tool.name in ALLOWED_TOOLS
+        ]
 
         # Convert MCP tools to Groq format
         groq_tools = []
@@ -109,6 +128,11 @@ use that tool.
         for tool_call in message.tool_calls:
 
             tool_name = tool_call.function.name
+
+            if tool_name not in ALLOWED_TOOLS:
+                raise PermissionError(
+                    f"Tool not permitted: {tool_name}"
+                )
 
             arguments = json.loads(
                 tool_call.function.arguments

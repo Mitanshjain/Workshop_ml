@@ -1,0 +1,727 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Sanjeevani | Medical MCP</title>
+
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            margin: 0;
+            padding: 40px 20px;
+        }
+
+        .container {
+            max-width: 650px;
+            margin: auto;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: #173b65;
+            margin-bottom: 10px;
+        }
+
+        h2 {
+            color: #173b65;
+            margin-top: 0;
+        }
+
+        p {
+            color: #667085;
+            line-height: 1.6;
+        }
+
+        .card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px #00000012;
+            margin-bottom: 25px;
+        }
+
+        input,
+        button {
+            width: 100%;
+            padding: 12px;
+            margin-top: 12px;
+            border-radius: 8px;
+            font-size: 15px;
+        }
+
+        input {
+            border: 1px solid #ccd4df;
+            outline: none;
+        }
+
+        input:focus {
+            border-color: #1768c2;
+        }
+
+        button {
+            border: none;
+            background: #1768c2;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        button:hover {
+            background: #12539c;
+        }
+
+        button:disabled {
+            opacity: 0.65;
+            cursor: not-allowed;
+        }
+
+        .result-box {
+            margin-top: 20px;
+            padding: 15px;
+            background: #eef5ff;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            overflow-wrap: anywhere;
+            font-family: Consolas, monospace;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        .section-label {
+            color: #1768c2;
+            font-size: 13px;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .demo-note {
+            font-size: 13px;
+            color: #667085;
+            margin-top: 14px;
+        }
+
+        .footer {
+            text-align: center;
+            color: #98a2b3;
+            font-size: 13px;
+            margin-top: 25px;
+        }
+
+        @media (max-width: 600px) {
+            body {
+                padding: 20px 12px;
+            }
+
+            .card {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <!-- ====================================== -->
+    <!-- PAGE HEADER -->
+    <!-- ====================================== -->
+
+    <div class="page-header">
+
+        <h1>Sanjeevani Medical MCP</h1>
+
+        <p>
+            Medical Services Integration
+            using FastAPI + FastMCP
+        </p>
+
+    </div>
+
+
+    <!-- ====================================== -->
+    <!-- DOCTOR MCP SECTION -->
+    <!-- ====================================== -->
+
+    <div class="card">
+
+        <div class="section-label">
+            Doctor MCP Service
+        </div>
+
+        <h2>Doctor Search</h2>
+
+        <p>
+            Search for a doctor and retrieve
+            information through Doctor MCP.
+        </p>
+
+        <form id="doctorForm">
+
+            <input
+                id="doctorName"
+                type="text"
+                placeholder="Enter doctor name (e.g. Dr. Sharma)"
+                required
+                maxlength="100"
+            >
+
+            <button type="submit" id="doctorBtn">
+                Search Doctor
+            </button>
+
+        </form>
+
+        <div
+            id="result"
+            class="result-box"
+            role="status"
+        >
+            Enter a doctor name to search.
+        </div>
+
+    </div>
+
+
+    <!-- ====================================== -->
+    <!-- PATIENT MCP SECTION -->
+    <!-- ====================================== -->
+
+    <div class="card">
+
+        <div class="section-label">
+            Patient MCP Service
+        </div>
+
+        <h2>Patient Details</h2>
+
+        <p>
+            Retrieve patient information
+            using the Patient MCP service.
+        </p>
+
+        <button
+            type="button"
+            id="patientBtn"
+        >
+            Get Patient Details
+        </button>
+
+        <div
+            id="patientResult"
+            class="result-box"
+            role="status"
+        >
+            Click the button to load patient details.
+        </div>
+
+        <p class="demo-note">
+            Demo only: Patient MCP currently uses
+            a separate SQLite database.
+            Records are not linked to the
+            Sanjeevani MySQL patient accounts.
+        </p>
+
+    </div>
+
+    
+<!-- ====================================== -->
+<!-- APPOINTMENT MCP SECTION -->
+<!-- ====================================== -->
+
+<div class="card">
+
+    <div class="section-label">
+        Appointment MCP Service
+    </div>
+
+    <h2>Appointment MCP Status</h2>
+
+    <p>
+        Verify the connection between FastAPI
+        and the Appointment MCP server.
+    </p>
+
+    <button type="button" id="appointmentStatusBtn">
+        Check Appointment MCP
+    </button>
+
+    <div
+        id="appointmentResult"
+        class="result-box"
+        role="status"
+    >
+        Click the button to check Appointment MCP.
+    </div>
+
+    <p class="demo-note">
+        Connection test only. No appointment
+        will be booked or payment processed.
+    </p>
+
+</div>
+
+
+
+<!-- ====================================== -->
+<!-- MEDICAL LLM MCP SECTION -->
+<!-- ====================================== -->
+
+<div class="card">
+
+    <div class="section-label">
+        Medical LLM MCP Service
+    </div>
+
+    <h2>AI Medical Assistant</h2>
+
+    <p>
+        Ask general health-related questions
+        using our Groq-powered Medical LLM MCP.
+    </p>
+
+    <form id="medicalLLMForm">
+
+        <textarea
+            id="medicalMessage"
+            placeholder="Example: What are common symptoms of fever?"
+            maxlength="2000"
+            rows="4"
+            required
+            style="
+                width: 100%;
+                padding: 12px;
+                margin-top: 12px;
+                border: 1px solid #ccd4df;
+                border-radius: 8px;
+                font-size: 15px;
+                box-sizing: border-box;
+                font-family: Arial, sans-serif;
+                resize: vertical;
+            "
+        ></textarea>
+
+        <button type="submit" id="medicalLLMBtn">
+            Ask Medical Assistant
+        </button>
+
+    </form>
+
+    <div
+        id="medicalLLMResult"
+        class="result-box"
+        role="status"
+    >
+        Enter a question to get AI-powered guidance.
+    </div>
+
+    <p class="demo-note">
+        This AI assistant provides general health
+        information only. It does not replace
+        professional medical advice or diagnosis.
+    </p>
+
+</div>
+
+
+
+<!-- ====================================== -->
+<!-- INSURANCE MCP SERVICE -->
+<!-- ====================================== -->
+
+<div class="card">
+
+  <div class="section-label">
+    Insurance MCP Service
+  </div>
+
+  <h2>Insurance Policy Details</h2>
+
+  <p>
+    Check the availability of insurance details
+    through the Insurance MCP service.
+  </p>
+
+  <button type="button" id="insuranceBtn">
+    Check Insurance Details
+  </button>
+
+  <div
+    id="insuranceResult"
+    class="result-box"
+    role="status"
+  >
+    Click the button to check insurance access.
+  </div>
+
+  <p class="demo-note">
+    Insurance MCP is currently in demo mode.
+    Patient insurance details will be available
+    after secure identity mapping is configured.
+  </p>
+
+</div>
+
+
+
+
+
+    <!-- ====================================== -->
+    <!-- FOOTER -->
+    <!-- ====================================== -->
+
+    <div class="footer">
+        Sanjeevani Screening Clinic |
+        FastAPI + FastMCP Integration
+    </div>
+
+</div>
+
+
+<!-- ====================================== -->
+<!-- JAVASCRIPT -->
+<!-- ====================================== -->
+
+<script>
+
+    // ======================================
+    // DOCTOR MCP FRONTEND INTEGRATION
+    // ======================================
+
+    const form = document.getElementById("doctorForm");
+
+    const resultBox = document.getElementById("result");
+
+    const doctorBtn = document.getElementById("doctorBtn");
+
+
+    form.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
+
+        const name = document
+            .getElementById("doctorName")
+            .value.trim();
+
+        if (!name) {
+            resultBox.textContent =
+                "Please enter a doctor name.";
+            return;
+        }
+
+        resultBox.textContent = "Searching doctor...";
+
+        doctorBtn.disabled = true;
+
+        try {
+
+            const response = await fetch(
+                "/api/mcp/doctor",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({ name })
+                }
+            );
+
+            const result = await response.json();
+
+            if (!response.ok) {
+
+                resultBox.textContent =
+                    result.detail || "Request failed.";
+
+                return;
+            }
+
+            resultBox.textContent =
+                JSON.stringify(result, null, 2);
+
+        } catch (error) {
+
+            resultBox.textContent =
+                "Unable to connect to FastAPI.";
+
+        } finally {
+
+            doctorBtn.disabled = false;
+
+        }
+
+    });
+
+
+    // ======================================
+    // PATIENT MCP FRONTEND INTEGRATION
+    // ======================================
+
+    const patientBtn = document.getElementById("patientBtn");
+
+    const patientResult = document.getElementById("patientResult");
+
+
+    patientBtn.addEventListener("click", async () => {
+
+        patientResult.textContent =
+            "Loading patient details...";
+
+        patientBtn.disabled = true;
+
+        try {
+
+            const response = await fetch(
+                "/api/mcp/patient",
+                {
+                    method: "GET"
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+
+                patientResult.textContent =
+                    data.detail ||
+                    "Failed to fetch patient details.";
+
+                return;
+            }
+
+            patientResult.textContent =
+                JSON.stringify(data, null, 2);
+
+        } catch (error) {
+
+            patientResult.textContent =
+                "Unable to connect to Patient MCP API.";
+
+        } finally {
+
+            patientBtn.disabled = false;
+
+        }
+
+    });
+
+
+    
+// ======================================
+// APPOINTMENT MCP FRONTEND INTEGRATION
+// ======================================
+
+const appointmentStatusBtn =
+    document.getElementById("appointmentStatusBtn");
+
+const appointmentResult =
+    document.getElementById("appointmentResult");
+
+appointmentStatusBtn.addEventListener(
+    "click",
+    async () => {
+
+        appointmentStatusBtn.disabled = true;
+
+        appointmentResult.textContent =
+            "Checking Appointment MCP connection...";
+
+        try {
+
+            const response = await fetch(
+                "/api/mcp/appointment/status"
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+
+                appointmentResult.textContent =
+                    data.detail || "Connection failed.";
+
+                return;
+            }
+
+            appointmentResult.textContent =
+                JSON.stringify(data, null, 2);
+
+        } catch (error) {
+
+            appointmentResult.textContent =
+                "Unable to connect to FastAPI.";
+
+        } finally {
+
+            appointmentStatusBtn.disabled = false;
+
+        }
+    }
+);
+
+
+// ======================================
+// MEDICAL LLM MCP FRONTEND INTEGRATION
+// ======================================
+
+const medicalLLMForm =
+    document.getElementById("medicalLLMForm");
+
+const medicalLLMBtn =
+    document.getElementById("medicalLLMBtn");
+
+const medicalLLMResult =
+    document.getElementById("medicalLLMResult");
+
+
+medicalLLMForm.addEventListener(
+    "submit",
+    async (event) => {
+
+        event.preventDefault();
+
+        const message = document
+            .getElementById("medicalMessage")
+            .value.trim();
+
+        if (!message) {
+            medicalLLMResult.textContent =
+                "Please enter a question.";
+            return;
+        }
+
+        medicalLLMBtn.disabled = true;
+
+        medicalLLMResult.textContent =
+            "Medical assistant is thinking...";
+
+        try {
+
+            const response = await fetch(
+                "/api/mcp/medical-llm",
+                {
+                    method: "POST",
+
+                    headers: {
+                        "Content-Type": "application/json"
+                    },
+
+                    body: JSON.stringify({
+                        message: message
+                    })
+                }
+            );
+
+            const data = await response.json();
+
+            if (!response.ok) {
+
+                medicalLLMResult.textContent =
+                    data.detail || "Request failed.";
+
+                return;
+            }
+
+            if (!data.success) {
+
+                medicalLLMResult.textContent =
+                    data.message ||
+                    "Medical assistant could not respond.";
+
+                return;
+            }
+
+            medicalLLMResult.textContent =
+                data.response ||
+                "No response received.";
+
+        } catch (error) {
+
+            medicalLLMResult.textContent =
+                "Unable to connect to Medical LLM API.";
+
+        } finally {
+
+            medicalLLMBtn.disabled = false;
+
+        }
+    }
+);
+
+
+
+// ==========================================
+// INSURANCE MCP FRONTEND
+// ==========================================
+
+const insuranceBtn =
+    document.getElementById("insuranceBtn");
+
+const insuranceResult =
+    document.getElementById("insuranceResult");
+
+
+insuranceBtn.addEventListener("click", async () => {
+
+    insuranceBtn.disabled = true;
+
+    insuranceResult.textContent =
+        "Checking insurance details...";
+
+    try {
+
+        const response = await fetch(
+            "/api/mcp/insurance"
+        );
+
+        const data = await response.json();
+
+        if (!response.ok) {
+
+            insuranceResult.textContent =
+                data.detail || "Insurance access unavailable.";
+
+            return;
+        }
+
+        insuranceResult.textContent =
+            JSON.stringify(data, null, 2);
+
+    } catch (error) {
+
+        insuranceResult.textContent =
+            "Unable to connect to Insurance MCP API.";
+
+    } finally {
+
+        insuranceBtn.disabled = false;
+
+    }
+
+});
+
+
+
+
+</script>
+
+</body>
+</html>

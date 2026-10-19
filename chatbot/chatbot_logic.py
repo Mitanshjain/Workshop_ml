@@ -763,39 +763,59 @@ def detect_number(message_lower):
 # BOOKING CONFIRMATION
 # =========================================================
 
-def is_booking_confirmation(
-    message_lower
-):
+# =========================================================
+# BOOKING CONFIRMATION
+# =========================================================
+
+def is_booking_confirmation(message_lower):
+
+    message_lower = message_lower.strip().lower()
 
     return message_lower in [
         "yes",
         "yes please",
         "yes book",
         "yes book it",
+        "yes, book it",
+        "yes, book this appointment",
+        "yes book this appointment",
         "book it",
         "book this",
+        "book this appointment",
         "confirm",
         "confirm it",
-        "please book"
+        "confirm appointment",
+        "confirm booking",
+        "please book",
+        "please book this appointment"
     ]
+
 
 
 # =========================================================
 # CANCELLATION CONFIRMATION
 # =========================================================
 
-def is_cancel_confirmation(
-    message_lower
-):
+def is_cancel_confirmation(message_lower):
+
+    message_lower = message_lower.strip().lower()
 
     return message_lower in [
         "yes",
+        "yes please",
         "yes cancel",
+        "yes, cancel",
+        "yes cancel it",
+        "yes, cancel it",
+        "yes cancel this appointment",
+        "yes, cancel this appointment",
         "cancel it",
+        "cancel this appointment",
         "confirm",
         "confirm cancellation",
         "confirm cancel"
     ]
+
 
 
 # =========================================================
@@ -981,7 +1001,8 @@ def chat_with_patient(
     # =====================================================
 
     appointments = get_patient_appointments(
-        patient_id
+        patient_id,
+        upcoming_only=True
     )
 
 

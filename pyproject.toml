@@ -5,6 +5,7 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "bcrypt>=5.0.0",
     "elevenlabs>=2.70.0",
     "fastapi>=0.141.1",
     "fastmcp>=4.0.11",
@@ -16,6 +17,7 @@ dependencies = [
     "nltk>=3.10.3",
     "numpy>=2.5.3",
     "pandas>=3.0.5",
+    "pyjwt>=2.15.1",
     "python-dotenv>=1.2.3",
     "python-multipart>=0.0.32",
     "scikit-learn>=1.9.0",
