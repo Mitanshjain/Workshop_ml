@@ -7,6 +7,7 @@ requires-python = ">=3.13"
 dependencies = [
     "bcrypt>=5.0.0",
     "elevenlabs>=2.70.0",
+    "faiss-cpu>=1.15.1",
     "fastapi>=0.141.1",
     "fastmcp>=4.0.11",
     "gensim>=4.4.0",

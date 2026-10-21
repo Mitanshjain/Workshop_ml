@@ -1,8 +1,0 @@
-[2026-10-19 11:22:40,263] 53 medical_mcp.servers.user.patient_mcp -INFO -Patient MCP Server initialized successfully
-[2026-10-19 11:22:40,271] 51 medical_mcp.servers.user.doctor_mcp -INFO -Doctor Search MCP Server initialized successfully
-[2026-10-19 11:22:40,281] 53 medical_mcp.servers.user.appointment_mcp -INFO -Appointment MCP Server initialized successfully
-[2026-10-19 11:22:41,404] 162 mcp.server.streamable_http_manager -INFO -StreamableHTTP session manager started
-[2026-10-19 11:24:49,207] 50 medical_mcp.auth.rbac -INFO -Checking RBAC permission | Role: user | MCP Server: doctor_mcp
-[2026-10-19 11:24:49,208] 62 medical_mcp.auth.rbac -INFO -Access granted | Role: user
-[2026-10-19 11:24:49,208] 89 medical_mcp.servers.user.doctor_mcp -INFO -Doctor search requested for: Dr. Sharma
-[2026-10-19 11:24:49,214] 108 medical_mcp.servers.user.doctor_mcp -INFO -Doctor verified successfully from database: Dr. Sharma
